@@ -1,0 +1,10 @@
+# Choose the database type: H2, MYSQL, MARIADB
+databaseType: MYSQL
+
+# Database connection settings
+connectionSettings:
+  host: localhost
+  port: 3306
+  database: mydb
+  username: root
+  password: secret

@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <spigotVersion>1.19.4</spigotVersion>
+        <spigotVersion>1.20.1</spigotVersion>
         <javaVersion>17</javaVersion>
         <testServerPath>E:\Servers\1.19.4\plugins</testServerPath>
         <shadedPackage>me.opkarol.opplots.shaded</shadedPackage>
@@ -63,6 +63,28 @@
                     <relocations>
                     </relocations>
                     <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**</exclude>
+                                <exclude>fonts/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_4/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_17_1/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_2_3/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_4_5/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_1/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_2/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_0/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_3/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_2/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_1/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_1/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_0/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_17_0/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_15/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_14/**</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                 </configuration>
                 <executions>
@@ -90,6 +112,10 @@
             <id>enginehub</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+        <repository>
+            <id>essentials-releases</id>
+            <url>https://repo.essentialsx.net/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -100,9 +126,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.ThisKarolGajda</groupId>
-            <artifactId>OpC</artifactId>
-            <version>LATEST</version>
+            <groupId>me.opkarol</groupId>
+            <artifactId>opc</artifactId>
+            <version>1.8.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -116,6 +142,18 @@
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.1.0-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.essentialsx</groupId>
+            <artifactId>EssentialsX</artifactId>
+            <version>2.19.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stefvanschie.inventoryframework</groupId>
+            <artifactId>IF</artifactId>
+            <version>0.10.11</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,202 @@
+OpPlots
+    Ekwipunki
+        - sprawdzić czy do każdego elementu ekwipunku da się dostać zastępczą komendą
+        PlotAddExpirationInventory (dodawanie daty wygaśnięcia)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        ManageIgnorePagedInventory (zarządzanie ignorowanymi)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        ManageMembersPagedInventory (zarządzanie członkami)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        ChoosePlayerInventory (wybieranie gracza - od ManageMembersPagedInventory i ManageIgnorePagedInventory)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        PlayerRequestAnvilInventory (wybieranie gracza - od ManageMembersPagedInventory i ManageIgnorePagedInventory w gui kowadle)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        ChoosePlotInventory (wybieranie działki - używane przez większość rzeczy)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        CreatePlotInventory (gui tworzenie działki z informacją co przenosi do wiki)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        MainPlotInventory (główne gui)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        PlotChangeNameAnvilInventory (zmiana nazwy działki w gui kowadle)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        PlotRemoveAnvilInventory (usuwanie działki w gui kowadle)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        SettingsChoosePagedInventory (wybieranie ustawień z SettingsInventory)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        SettingsInventory (zarządzanie ustawieniami)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        UpgradesInventory (zarządzanie ulepszeniami)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+        PlotWikiInventory (wiki!)
+                    - każdy tytuł poprawną polszczyzną
+                    - każdy tytuł i opis itemku poprawną polszczyzną
+                    - tytuły z dużej litery
+                    - tytuły ekwipunków bez formatowania "&8"
+                    - tytuły itemów "#<447cfc>&l"
+                    - każdy item ma jakiś feedback (tzn. wykonuje jakąs akcję na naciśnięciu np. powiadamia gracza, że jest gejem)
+
+    Komendy
+        dzialka
+            usun
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            wiki
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            granica
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            ustawienia
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            ulepszenia
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            czlonkowie
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            ignorowani
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            zmiennazwe
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            wygasniecie
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            ustawdom
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+            dom
+                - przetestować jako właściciel, członek, nie członek działki
+                - sprawdzić czy wszytkie wiadomości są poprawne
+
+            (ADMIN:)
+            - sprawdzić czy permisje na komendy dobrze działają ("opplots.admin")
+            admin usun-uuid-dzialki (usuwa działkę którego gracz (owner) ma takie uuid)
+            admin usun (otwiera wybór wszystkich działek i pozwala na usunięcie)
+            admin tp (otwiera wybór wszystkich działek i pozwala na tp)
+
+    Ustawienia
+        - działanie komendy
+        - wygląd ekwipunków / wiadomości
+        - przetestować czy działają zmiany ustawień
+        - przetestować zapisywanie/odczytywanie danych
+        - feedback i ux gracza
+        - sprawdzić czy mając permisję "opplots.vip.cheaper_settings_cost" kupuje się tańsze ustawienia
+        - [!] sprawdzić czy działa ustawienie BiomeChange
+
+    Ulepszenia
+        - działanie komendy
+        - wygląd ekwipunków / wiadomości
+        - przetestować czy działa ulepszanie
+        - przetestować zapisywanie/odczytywanie danych
+        - feedback i ux gracza
+        - [!] sprawdzić czy działa ulepszenie AnimalsGrowth
+        - [!] sprawdzić czy działa ulepszenie PlantsGrowth
+        - sprawdzić czy wszystko działa tak jak powinno z różnymi etapami ulepszeń PlotSize
+        - sprawdzić czy mając permisję "opplots.vip.cheaper_upgrades_cost" kupuje się tańsze ulepszenia
+        - sprawdzić czy mając permisję "opplots.vip.additional_plot_size_upgrade" można kupić dodatkowe ulepszenie rozmiaru
+
+    Regiony
+        - tworzenie 3 regionów na starcie (MAIN, SUPPORT - do wyświetlania granicy, SAFE_AREA do zabezpieczenia strefy)
+        - [!] membersi mogą budować na MAIN, na pozostałych mogą wszyscy
+        - [!] sprawdzić tworzenie działek koło siebie
+        - [!] czy ignorowani mogą wchodzić na działki na których są ignorowani
+        - wpływ ustawień na flagi regionów
+
+    Logi (Discord Webhook)
+        czy wysyłają się przy wykonywaniu tych czynności
+        sendPlotChangedNameWebhook
+        sendPlotCreatedWebhook
+        sendPlotRemovedWebhook
+        sendPlotChangedHomeWebhook
+        sendPlotAddedMemberWebhook
+        sendPlotRemovedMemberWebhook
+        sendPlotChangedIgnoredWebhook
+        sendPlotExpiredWebhook
+
+    Wygasanie działki
+        (domyślnie wygasa za 5 dni od stworzenia)
+        - sprawdzić czy jak serwer się zatrzyma i przjdzie data wygaśnięcia to wygaśnie na włączeniu serwerka
+        - sprawdzić normalnie czy wygaśnie
+        - sprawdzić czy wygaśnie po dodaniu wartości poprzez zakupienie dodatkowego czasu na wygasanie w ekwpiunku
+
+    Wyszukiwarka graczy (użyta w ignorowanych i członkach działki)
+        - [!] sprawdzić czy używając Levenhstein distance rzeczywiście dobrze przypasowuje który nick jest najbliższy temu co się wprowadziło w gui kowadle
+
+    Efekty po Stworzeniu działki
+        - strzały fajerwerków
+        - jednorazowy dźwięk
+        - wiadomość
+        - usunięcie bossbara z postępem sprawdzania regionu
+
+
+TEKSTY:
+    dodać brakujące lore-y do przedmiotów a szczególnie /dzialka wiki
+    sprawdzić poprawnośc tego wszystkiego bo mnie głowa już boli od tekstów

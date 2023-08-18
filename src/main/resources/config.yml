@@ -5,6 +5,31 @@ databaseType: MYSQL
 connectionSettings:
   host: localhost
   port: 3306
-  database: mydb
+  database: opplots
   username: root
-  password: secret
+  password: ""
+
+plot:
+  world: world
+  upgrades: # Koszt mnożony jest przez level
+    PLOT_SIZE_UPGRADE: 10000
+    PLANTS_GROWTH_UPGRADE: 10000
+    ANIMALS_GROWTH_UPGRADE: 10000
+  settings: # Koszt za kupienie jednego ustawienia
+    WEATHER_CHANGE: 50000
+    DAY_TIME_CHANGE: 50000
+    BIOME_CHANGE: 50000
+    PVP_CHANGE: 0
+    ANIMALS_SPAWN_CHANGE: 10000
+  name:
+    maximal: 30 # 30 wychodzi idealnie, bo: "Działka gracza" to 14 znaków a minecraft pozwala mieć nazwę do 16 znaków -> 14+16=30
+    minimal: 3
+  expiration:
+    costPerHour: 1000 # Cena za przedłużenie działki o godzinę (reszta mnoży się przez tę wartość)
+
+special: # Specjalne viposki muszą mieć po taniości
+  cheaperUpgrades: 0.85 # 1 - podstawowa cena
+  cheaperSettings: 0.85 # ^^
+
+# Podaj tutaj swojego webhooka discordowego kanału do logów
+webhook: "https://discord.com/api/webhooks/1141274868470517800/ThXXBv9YuVe7saEBK02XCmU-jSc_rxQ92n0AlKvAQugvGWhHWCw2lJ5nEiCxwsMOsmqT"

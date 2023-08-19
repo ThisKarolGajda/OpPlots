@@ -102,7 +102,9 @@ public class PlotCommand {
     @Subcommand("wygasniecie")
     @Cooldown(3)
     public void addExpirationCommand(Player sender) {
-        getPlotFromLocationOrOwner(sender, plot -> plot.openAddExpirationInventory(sender));
+        OpPlotsAPI.getOwnerPlot(sender).ifPresentOrElse(plot -> new PlotFunctions(plot).openAddExpirationInventory(sender), () -> {
+            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem żadnej działki!"));
+        });
     }
 
     @Subcommand("ustawdom")

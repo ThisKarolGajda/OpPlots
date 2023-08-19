@@ -60,7 +60,7 @@ public class PlotAddExpirationInventory {
                 });
         GuiItem information = new GuiItem(new ItemBuilder(Material.ENCHANTED_BOOK)
                 .setName("#<447cfc>&lInformacje")
-                .setLore("&7Wygasa za: " + ExpirationConverter.getTimeLeftString(plot.getExpiration())),
+                .setLore("&7Wygasa: " + ExpirationConverter.getTimeLeftString(plot.getExpiration())),
                 event -> event.setCancelled(true));
         itemsPane.addItem(oneHourAdd, 0, 0);
         itemsPane.addItem(twelveHoursAdd, 1, 0);

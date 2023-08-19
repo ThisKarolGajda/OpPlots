@@ -68,21 +68,6 @@
                             <excludes>
                                 <exclude>META-INF/**</exclude>
                                 <exclude>fonts/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_4/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_17_1/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_2_3/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_4_5/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_1/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_2/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_18_0/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_3/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_2/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_16_1/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_1/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_19_0/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_17_0/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_15/**</exclude>
-                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_14/**</exclude>
                             </excludes>
                         </filter>
                     </filters>

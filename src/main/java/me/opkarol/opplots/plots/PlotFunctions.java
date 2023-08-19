@@ -49,22 +49,42 @@ public record PlotFunctions(Plot plot) {
     }
 
     public void openSettingsInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new SettingsInventory(plot, player);
     }
 
     public void openUpgradesInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new UpgradesInventory(plot, player);
     }
 
     public void openManageIgnorePagedInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new ManageIgnorePagedInventory(plot, player);
     }
 
     public void openManageMembersPagedInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new ManageMembersPagedInventory(plot, player);
     }
 
     public void openPlotChangeNameAnvilInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new PlotChangeNameAnvilInventory(plot, player);
     }
 
@@ -73,6 +93,10 @@ public record PlotFunctions(Plot plot) {
     }
 
     public void openAddExpirationInventory(Player player) {
+        if (!plot.isOwner(player)) {
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            return;
+        }
         new PlotAddExpirationInventory(plot, player);
     }
 

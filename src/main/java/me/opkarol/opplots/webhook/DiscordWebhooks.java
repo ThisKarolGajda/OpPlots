@@ -108,7 +108,7 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Członek działki dodany!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nCzłonkowie: " + Arrays.toString(plot.getMembers().toArray()) + "\\nPoprzedni członkowie: " + Arrays.toString(previousMembers.toArray()) + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(addedUUID).getName() + " (" + addedUUID + ")")
+                            .setDescription("Nazwa działki: " + plotName + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(addedUUID).getName() + " (" + addedUUID + ")")
                             .setColor(Color.ORANGE))
                     .setTts(true)
                     .execute();
@@ -129,7 +129,7 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Członek działki usunięty!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nCzłonkowie: " + Arrays.toString(plot.getMembers().toArray()) + "\\nPoprzedni członkowie: " + Arrays.toString(previousMembers.toArray()) + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(removedUUID).getName() + " (" + removedUUID + ")")
+                            .setDescription("Nazwa działki: " + plotName + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(removedUUID).getName() + " (" + removedUUID + ")")
                             .setColor(Color.MAGENTA))
                     .setTts(true)
                     .execute();
@@ -150,7 +150,7 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Ignorowani działki zmienieni!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nIgnorowani: " + Arrays.toString(plot.getMembers().toArray()) + "\\nPoprzedni ignorowani: " + Arrays.toString(previousIgnored.toArray()) + "\\nNazwy ignorowanych: " + ignoredNames + "\\nNazwy poprzednich ignorowanych: " + previousIgnoredNames)
+                            .setDescription("Nazwa działki: " + plotName + "\\nIgnorowani: " + Arrays.toString(plot.getMembers().toArray()) + "\\nNazwy ignorowanych: " + ignoredNames + "\\nNazwy poprzednich ignorowanych: " + previousIgnoredNames)
                             .setColor(Color.YELLOW))
                     .setTts(true)
                     .execute();

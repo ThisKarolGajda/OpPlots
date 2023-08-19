@@ -16,7 +16,7 @@ public class ExpirationConverter {
         long hours = TimeUnit.MILLISECONDS.toHours(timeDifferenceMillis) % 24;
         long minutes = TimeUnit.MILLISECONDS.toMinutes(timeDifferenceMillis) % 60;
 
-        StringBuilder builder = new StringBuilder("Za ");
+        StringBuilder builder = new StringBuilder("za ");
         if (days > 0) {
             builder.append(days).append(" dni ");
         }

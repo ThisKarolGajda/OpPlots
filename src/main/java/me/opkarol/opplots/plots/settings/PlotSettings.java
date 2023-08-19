@@ -2,7 +2,6 @@ package me.opkarol.opplots.plots.settings;
 
 import com.sk89q.worldedit.world.biome.BiomeType;
 import com.sk89q.worldedit.world.biome.BiomeTypes;
-import me.opkarol.opc.OpAPI;
 import me.opkarol.opc.api.file.Configuration;
 import me.opkarol.opc.api.map.OpMap;
 import me.opkarol.opc.api.misc.Tuple;
@@ -17,7 +16,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Function;
 
 public class PlotSettings {
@@ -133,7 +135,7 @@ public class PlotSettings {
     }
 
     public enum Type {
-        WEATHER_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.WEATHER_CHANGE"), WeatherChangeSetting.getInstance(), weather -> ((WeatherType) weather).name(), WeatherType::valueOf, new Tuple[]{Tuple.of("Czysta pogoda", WeatherType.CLEAR), Tuple.of("Padająca pogoda", WeatherType.DOWNFALL)}),
+        WEATHER_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.WEATHER_CHANGE"), WeatherChangeSetting.getInstance(), weatherObject -> ((WeatherType) weatherObject).name(), WeatherType::valueOf, new Tuple[]{Tuple.of("Czysta pogoda", WeatherType.CLEAR), Tuple.of("Opady deszczu", WeatherType.DOWNFALL)}),
         DAY_TIME_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.DAY_TIME_CHANGE"), DayTimeChange.getInstance(), String::valueOf, Long::parseLong, new Tuple[]{Tuple.of("TEST", 0)}),
         BIOME_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.BIOME_CHANGE"), BiomeChange.getInstance(), biomeType -> ((BiomeType) biomeType).getId(), BiomeType.REGISTRY::get,  new Tuple[]{Tuple.of("BIRCH FOREST", BiomeTypes.BIRCH_FOREST.getId())}),
         PVP_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.PVP_CHANGE"), PvpChange.getInstance(), Object::toString, StringUtil::getBooleanFromObject, new Tuple[]{Tuple.of("TAK", true), Tuple.of("NIE", false)}),

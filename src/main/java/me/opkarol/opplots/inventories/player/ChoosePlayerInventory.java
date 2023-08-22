@@ -25,7 +25,7 @@ public class ChoosePlayerInventory {
                         item = HeadManager.getHeadValue(player1);
                     }
 
-                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + offlinePlayer.getName()).setLore("&7Ostatnio online: " + PlayerLastPlayed.getPlayerLastPlayed(offlinePlayer), "&7UUID: " + offlinePlayer.getUniqueId()), event -> {
+                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + offlinePlayer.getName()).setLore("&7Ostatnio online: " + PlayerLastPlayed.getPlayerLastPlayed(offlinePlayer)), event -> {
                         event.setCancelled(true);
                         player.closeInventory();
                         action.accept(offlinePlayer);

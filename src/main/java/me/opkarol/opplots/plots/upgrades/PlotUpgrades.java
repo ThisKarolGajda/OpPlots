@@ -94,6 +94,11 @@ public class PlotUpgrades {
     }
 
     public double getCostForNextLevel(Plot plot, Type type) {
+        if (type.levelLimit == getLevel(type)) {
+            // Already has max level
+            return 0;
+        }
+
         if (plot.getOwner().getPlayer().hasPermission(PlayerPermissions.CHEAPER_UPGRADES_COST)) {
             return type.pricePerLimit.apply(getLevel(type) + 1) * CHEAPER_UPGRADES;
         }
@@ -125,8 +130,8 @@ public class PlotUpgrades {
 
     public enum Type {
         PLOT_SIZE_UPGRADE(6, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLOT_SIZE_UPGRADE"), null, PlotSizeUpgrade.ON_LEVEL_UP_ACTION),
-        PLANTS_GROWTH_UPGRADE(3, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLANTS_GROWTH_UPGRADE"), PlantsGrowthUpgrade.getInstance(), null),
-        ANIMALS_GROWTH_UPGRADE(3, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.ANIMALS_GROWTH_UPGRADE"), AnimalsGrowthUpgrade.getInstance(), null),
+        PLANTS_GROWTH_UPGRADE(5, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLANTS_GROWTH_UPGRADE"), PlantsGrowthUpgrade.getInstance(), null),
+        ANIMALS_GROWTH_UPGRADE(5, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.ANIMALS_GROWTH_UPGRADE"), AnimalsGrowthUpgrade.getInstance(), null),
         ;
 
         private final int levelLimit;

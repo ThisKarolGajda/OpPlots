@@ -1,6 +1,7 @@
 package me.opkarol.opplots.plots.upgrades.types;
 
 import me.opkarol.opc.api.tools.runnable.OpRunnable;
+import me.opkarol.opc.api.utils.MathUtils;
 import me.opkarol.opc.api.utils.VariableUtil;
 import me.opkarol.opplots.plots.Plot;
 import me.opkarol.opplots.plots.listener.PlotOptionsRegister;
@@ -40,14 +41,42 @@ public class PlantsGrowthUpgrade extends PlotOptionsRegister {
             }
 
             Location location = blockState.getLocation();
-
             new OpRunnable(() -> getPlotInsideLocationAsync(location).thenAcceptAsync(plot -> {
                 if (plot != null) {
-                    int newAge = ageable.getAge() + GROWTH_MULTIPLIER * plot.getUpgrades().getLevel(PlotUpgrades.Type.PLANTS_GROWTH_UPGRADE);
+                    int newAge = ageable.getAge() + 1;
+                    int level = plot.getUpgrades().getLevel(PlotUpgrades.Type.PLANTS_GROWTH_UPGRADE);
+
+                    switch (level) {
+                        case 1 -> {
+                            if (MathUtils.getRandomInt(1, 10) == 10) {
+                                newAge++;
+                            }
+                        }
+                        case 2 -> {
+                            if (MathUtils.getRandomInt(1, 4) == 1) {
+                                newAge++;
+                            }
+                        }
+                        case 3 -> {
+                            if (MathUtils.getRandomInt(1, 10) <= 4) {
+                                newAge++;
+                            }
+                        }
+                        case 4 -> {
+                            if (MathUtils.getRandomInt(1, 10) <= 8) {
+                                newAge++;
+                            }
+                        }
+                        case 5 -> newAge++;
+                    }
+
                     if (newAge > ageable.getMaximumAge()) {
                         newAge = ageable.getMaximumAge();
                     }
+
                     ageable.setAge(newAge);
+                    blockState.setBlockData(ageable);
+                    new OpRunnable(() -> blockState.update(true)).runTask();
                 }
             })).runTaskAsynchronously();
         }

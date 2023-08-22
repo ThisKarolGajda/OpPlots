@@ -13,7 +13,7 @@ public class PlayerNameMatcher {
     public static List<OfflinePlayer> getSortedPlayersByName(String name) {
         return Arrays.stream(Bukkit.getServer().getOfflinePlayers())
                 .distinct()
-                .sorted(Comparator.comparingInt(player -> calculateLevenshteinDistance(name, player.getName())))
+                .sorted(Comparator.comparingDouble(player -> similarity(name, player.getName())))
                 .collect(Collectors.toList());
     }
 
@@ -21,28 +21,50 @@ public class PlayerNameMatcher {
         return Arrays.stream(Bukkit.getServer().getOfflinePlayers())
                 .filter(player -> !Objects.equals(player.getName(), excluded))
                 .distinct()
-                .sorted(Comparator.comparingInt(player -> calculateLevenshteinDistance(name, player.getName())))
+                .sorted(Comparator.comparingDouble(player -> similarity(name, player.getName())))
                 .collect(Collectors.toList());
     }
 
-    private static int calculateLevenshteinDistance(String a, String b) {
-        int[][] dp = new int[a.length() + 1][b.length() + 1];
-
-        for (int i = 0; i <= a.length(); i++) {
-            for (int j = 0; j <= b.length(); j++) {
-                if (i == 0) {
-                    dp[i][j] = j;
-                } else if (j == 0) {
-                    dp[i][j] = i;
-                } else {
-                    int substitutionCost = a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1;
-                    dp[i][j] = Math.min(dp[i - 1][j - 1] + substitutionCost,
-                            Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
-                }
-            }
+    public static double similarity(String s1, String s2) {
+        String longer = s1, shorter = s2;
+        if (s1.length() < s2.length()) {
+            longer = s2;
+            shorter = s1;
+        }
+        int longerLength = longer.length();
+        if (longerLength == 0) {
+            return 1.0;
         }
 
-        return dp[a.length()][b.length()];
+        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+
+    }
+
+    public static int editDistance(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+
+        int[] costs = new int[s2.length() + 1];
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0)
+                    costs[j] = j;
+                else {
+                    if (j > 0) {
+                        int newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                            newValue = Math.min(Math.min(newValue, lastValue),
+                                    costs[j]) + 1;
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0)
+                costs[s2.length()] = lastValue;
+        }
+        return costs[s2.length()];
     }
 }
 

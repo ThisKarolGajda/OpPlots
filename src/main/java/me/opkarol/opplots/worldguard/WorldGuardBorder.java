@@ -6,6 +6,8 @@ import me.opkarol.opplots.OpPlots;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class WorldGuardBorder {
     private static final int Y_HEIGHT_DIFFERENCE = 10;
     private static final double Z_GAP = 2;
@@ -34,19 +36,28 @@ public class WorldGuardBorder {
         void sendParticle(Player player, double x, double y, double z);
     }
 
-    public record ChunkOutlineEntry(Player player, ProtectedRegion region, int yHeight,
-                                    IPlayerParticle playerParticle) {
+    public record ChunkOutlineEntry(Player player, ProtectedRegion region, int yHeight, IPlayerParticle playerParticle) {
 
         public void display(int seconds) {
             BlockVector3 min = region.getMinimumPoint();
             BlockVector3 max = region.getMaximumPoint();
+            Location defaultLocation = player.getLocation();
+
             for (int i = 0; i < seconds; i++) {
                 int delayTicks = i * 20;
-                Bukkit.getScheduler().runTaskLater(OpPlots.getInstance(), () -> onParticle(min, max), delayTicks);
+                Bukkit.getScheduler().runTaskLater(OpPlots.getInstance(), () -> onParticle(min, max, defaultLocation), delayTicks);
             }
         }
 
-        private void onParticle(BlockVector3 min, BlockVector3 max) {
+        private void onParticle(BlockVector3 min, BlockVector3 max, Location defaultLocation) {
+            if (!Objects.requireNonNull(defaultLocation.getWorld()).equals(player.getWorld())) {
+                return;
+            }
+
+            if (defaultLocation.distanceSquared(player.getLocation()) > 250) {
+                return;
+            }
+
             for (int y = yHeight - Y_HEIGHT_DIFFERENCE; y <= yHeight + Y_HEIGHT_DIFFERENCE; y++) {
                 for (int x = min.getBlockX(), xCount = 0; x <= max.getBlockX(); x++, xCount++) {
                     if (xCount % X_GAP == 0) {

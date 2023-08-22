@@ -17,9 +17,10 @@ import org.bukkit.entity.Player;
 
 public class PlotAddExpirationInventory {
     private final double EXPIRATION_COST_PER_HOUR = OpPlots.getInstance().getFilesManager().getConfigFile().getConfiguration().getDouble("plot.expiration.costPerHour");
+    private final ChestGui gui;
 
     public PlotAddExpirationInventory(Plot plot, Player player) {
-        ChestGui gui = new ChestGui(3, "Przedłużanie ważności działki!");
+        gui = new ChestGui(3, "Przedłużanie ważności działki!");
 
         StaticPane itemsPane = new StaticPane(1, 1, 7, 1, Pane.Priority.HIGH);
 
@@ -88,6 +89,15 @@ public class PlotAddExpirationInventory {
         if (returnInfo == Vault.VAULT_RETURN_INFO.WITHDRAW_SUCCESSFUL) {
             plot.addExpiration(TimeUtils.TimeUnit.HOUR.toMilliseconds() * hours);
             player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Pomyślnie przedłużono wartość o " + hours + " godzin!"));
+
+            StaticPane itemsPane = new StaticPane(1, 1, 7, 1, Pane.Priority.HIGHEST);
+            GuiItem information = new GuiItem(new ItemBuilder(Material.ENCHANTED_BOOK)
+                    .setName("#<447cfc>&lInformacje")
+                    .setLore("&7Wygasa: " + plot.getExpirationLeftString()),
+                    event -> event.setCancelled(true));
+            itemsPane.addItem(information, 6, 0);
+            gui.addPane(itemsPane);
+            gui.update();
         }
     }
 }

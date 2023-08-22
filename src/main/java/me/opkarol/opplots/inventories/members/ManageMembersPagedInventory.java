@@ -31,7 +31,7 @@ public class ManageMembersPagedInventory {
                         item = new ItemStack(Material.RED_WOOL);
                     }
 
-                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + clicked.getName()).setLore("&7Naciśnij #<447cfc>LPM &7aby usunąć tego użytkownika", "&7Ostatnio online: " + PlayerLastPlayed.getPlayerLastPlayed(clicked), "&7UUID: " + clicked.getUniqueId()), event -> {
+                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + clicked.getName()).setLore("&7Naciśnij #<447cfc>LPM &7aby usunąć tego użytkownika", "&7Ostatnio online: " + PlayerLastPlayed.getPlayerLastPlayed(clicked)), event -> {
                         event.setCancelled(true);
                         if (event.isShiftClick()) {
                             return;
@@ -49,6 +49,11 @@ public class ManageMembersPagedInventory {
                     });
                 })
                 .displayItems(List.of(new GuiItem(new ItemBuilder(Material.GREEN_TERRACOTTA).setName("#<447cfc>&lDodaj członka"), event -> new PlayerRequestAnvilInventory(player, newPlayer -> {
+                    if (plot.isIgnored(newPlayer)) {
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest ignorowany, nie można go dodać do działki!"));
+                        return;
+                    }
+
                     if (plot.isAdded(newPlayer)) {
                         player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest już dodany!"));
                         return;
@@ -60,7 +65,7 @@ public class ManageMembersPagedInventory {
                     }
                     player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Dodano gracza: " + newPlayer.getName() + ", do działki: " + plot.getName() + "."));
                 }))))
-                .build(plot.getMembers());
+                .build(plot.getMembers(), 3);
 
         gui.update();
         gui.show(player);

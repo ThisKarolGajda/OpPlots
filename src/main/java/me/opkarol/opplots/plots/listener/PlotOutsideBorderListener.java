@@ -6,6 +6,7 @@ import me.opkarol.opc.api.tools.runnable.OpRunnable;
 import me.opkarol.opc.api.utils.FormatUtils;
 import me.opkarol.opplots.OpPlots;
 import me.opkarol.opplots.plots.Plot;
+import me.opkarol.opplots.plots.permissions.PlayerPermissions;
 import me.opkarol.opplots.worldguard.WorldGuardBorder;
 import me.opkarol.opplots.worldguard.events.RegionEnteredEvent;
 import me.opkarol.opplots.worldguard.events.RegionLeftEvent;
@@ -42,19 +43,27 @@ public class PlotOutsideBorderListener extends BasicListener {
             return;
         }
 
+        final boolean[] ignored = {false};
         Player player = event.getPlayer();
+        if (REGEX_MAIN_IDENTIFIER.matcher(event.getRegionName()).matches() && event.getRegionName().length() == 48) {
+            if (!player.hasPermission(PlayerPermissions.ADMIN)) {
+                // Player is entering main region and is blocked!?
+                OpPlots.getInstance().getPluginManager().getPlotsDatabase().getPlotFromRegionIdentifier(regionName).ifPresent(plot -> {
+                    if (plot.isIgnored(player)) {
+                        ignored[0] = true;
+                        event.setCancelled(true);
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Nie możesz wejść na tą działkę!"));
+                    }
+                });
+            }
+        }
+
         UUID uuid = event.getUUID();
         Matcher matcher = REGEX_SUPPORT_IDENTIFIER.matcher(event.getRegionName());
 
-        if (matcher.matches()) {
+        if (!ignored[0] && matcher.matches()) {
             // Player is entering support region from whatever region
             OpPlots.getInstance().getPluginManager().getPlotsDatabase().getPlotFromRegionIdentifier(regionName.substring(0, regionName.length() - 1)).ifPresent(plot -> {
-                if (plot.isIgnored(player)) {
-                    event.setCancelled(true);
-                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Nie możesz wejść na tą działkę!"));
-                    return;
-                }
-
                 OpRunnable runnable = spawnParticles(plot, player, inSupportRegion);
                 inSupportRegion.set(uuid, runnable);
             });

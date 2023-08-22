@@ -49,6 +49,11 @@ public class WeatherChangeSetting extends PlotOptionsRegister {
         Plot plot = optional.get();
         Player player = event.getPlayer();
         Object object = plot.getSettings().getCurrent(PlotSettings.Type.WEATHER_CHANGE);
+        if (object == null) {
+            player.resetPlayerWeather();
+            return;
+        }
+
         if (!(object instanceof WeatherType weatherType)) {
             return;
         }
@@ -78,7 +83,7 @@ public class WeatherChangeSetting extends PlotOptionsRegister {
 
     @EventHandler
     public void onSettingChange(SettingChangeCurrentEvent event) {
-        if (event.getType() != PlotSettings.Type.WEATHER_CHANGE || !(event.getSetObject() instanceof WeatherType weatherType)) {
+        if (event.getType() != PlotSettings.Type.WEATHER_CHANGE) {
             return;
         }
 
@@ -88,7 +93,11 @@ public class WeatherChangeSetting extends PlotOptionsRegister {
                 .getPlayersInRegion(PLOTS_WORLD, event.getRegionName())
                 .thenAcceptAsync(players -> {
             for (Player player : players) {
-                player.setPlayerWeather(weatherType);
+                if (event.getSetObject() == null) {
+                    player.resetPlayerWeather();
+                    return;
+                }
+                player.setPlayerWeather((WeatherType) event.getSetObject());
             }
         });
     }
@@ -103,6 +112,11 @@ public class WeatherChangeSetting extends PlotOptionsRegister {
             }
 
             Object object = plot.getSettings().getCurrent(PlotSettings.Type.WEATHER_CHANGE);
+            if (object == null) {
+                player.resetPlayerWeather();
+                return;
+            }
+
             if (!(object instanceof WeatherType weatherType)) {
                 return;
             }

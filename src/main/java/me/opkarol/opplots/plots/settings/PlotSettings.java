@@ -1,7 +1,5 @@
 package me.opkarol.opplots.plots.settings;
 
-import com.sk89q.worldedit.world.biome.BiomeType;
-import com.sk89q.worldedit.world.biome.BiomeTypes;
 import me.opkarol.opc.api.file.Configuration;
 import me.opkarol.opc.api.map.OpMap;
 import me.opkarol.opc.api.misc.Tuple;
@@ -16,16 +14,31 @@ import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 
 public class PlotSettings {
     private static final double CHEAPER_SETTINGS = OpPlots.getInstance().getFilesManager().getConfigFile().getConfiguration().getDouble("special.cheaperSettings");
     private final OpMap<Type, Object> current = new OpMap<>();
     private final OpMap<Type, List<Object>> owned = new OpMap<>();
+
+    public PlotSettings(Object ignore) {
+        // Default owned elements
+        owned.set(Type.PVP_CHANGE, new ArrayList<>(List.of(true, false)));
+        owned.set(Type.ANIMALS_SPAWN_CHANGE, new ArrayList<>(List.of(true, false)));
+        owned.set(Type.WEATHER_CHANGE, new ArrayList<>(Collections.singletonList(null)));
+        owned.set(Type.DAY_TIME_CHANGE, new ArrayList<>(Collections.singletonList(null)));
+
+        // Default current elements
+        current.set(Type.PVP_CHANGE, true);
+        current.set(Type.ANIMALS_SPAWN_CHANGE, true);
+        current.set(Type.WEATHER_CHANGE, null);
+        current.set(Type.DAY_TIME_CHANGE, null);
+    }
+
+    public PlotSettings() {
+
+    }
 
     public static PlotSettings fromString(String input) {
         PlotSettings plotSettings = new PlotSettings();
@@ -135,11 +148,10 @@ public class PlotSettings {
     }
 
     public enum Type {
-        WEATHER_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.WEATHER_CHANGE"), WeatherChangeSetting.getInstance(), weatherObject -> ((WeatherType) weatherObject).name(), WeatherType::valueOf, new Tuple[]{Tuple.of("Czysta pogoda", WeatherType.CLEAR), Tuple.of("Opady deszczu", WeatherType.DOWNFALL)}),
-        DAY_TIME_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.DAY_TIME_CHANGE"), DayTimeChange.getInstance(), String::valueOf, Long::parseLong, new Tuple[]{Tuple.of("TEST", 0)}),
-        BIOME_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.BIOME_CHANGE"), BiomeChange.getInstance(), biomeType -> ((BiomeType) biomeType).getId(), BiomeType.REGISTRY::get,  new Tuple[]{Tuple.of("BIRCH FOREST", BiomeTypes.BIRCH_FOREST.getId())}),
-        PVP_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.PVP_CHANGE"), PvpChange.getInstance(), Object::toString, StringUtil::getBooleanFromObject, new Tuple[]{Tuple.of("TAK", true), Tuple.of("NIE", false)}),
-        ANIMALS_SPAWN_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.ANIMALS_SPAWN_CHANGE"), AnimalsSpawnChange.getInstance(), Object::toString, StringUtil::getBooleanFromObject, new Tuple[]{Tuple.of("TAK", true), Tuple.of("NIE", false)}),
+        WEATHER_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.WEATHER_CHANGE"), WeatherChangeSetting.getInstance(), weatherObject -> weatherObject == null ? null : ((WeatherType) weatherObject).name(), string -> string.equals("null") ? null : WeatherType.valueOf(string), new Tuple[]{Tuple.of("Czysta pogoda", WeatherType.CLEAR), Tuple.of("Opady deszczu", WeatherType.DOWNFALL), Tuple.of("Domyślna pogoda", null)}),
+        DAY_TIME_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.DAY_TIME_CHANGE"), DayTimeChange.getInstance(), String::valueOf, Long::parseLong, new Tuple[]{Tuple.of("Świt", 0L), Tuple.of("Rano", 1000L), Tuple.of("Południe", 6000L), Tuple.of("Zachód słońca", 12000L), Tuple.of("Zmierzch", 13000L), Tuple.of("Noc", 14000L), Tuple.of("Północ", 18000L), Tuple.of("Domyślna pora dnia", null)}),
+        PVP_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.PVP_CHANGE"), PvpChange.getInstance(), Object::toString, StringUtil::getBooleanFromObject, new Tuple[]{Tuple.of("PVP Włączone", true), Tuple.of("PVP Wyłączone", false)}),
+        ANIMALS_SPAWN_CHANGE(Constants.CONFIGURATION.getDouble("plot.settings.ANIMALS_SPAWN_CHANGE"), AnimalsSpawnChange.getInstance(), Object::toString, StringUtil::getBooleanFromObject, new Tuple[]{Tuple.of("Spawn zwierząt włączony", true), Tuple.of("Spawn zwierząt wyłączony", false)}),
         ;
 
         private final Tuple<String, Object>[] objects;

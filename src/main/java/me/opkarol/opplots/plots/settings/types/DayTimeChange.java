@@ -47,6 +47,11 @@ public class DayTimeChange extends PlotOptionsRegister {
         Plot plot = optional.get();
         Player player = event.getPlayer();
         Object object = plot.getSettings().getCurrent(PlotSettings.Type.DAY_TIME_CHANGE);
+        if (object == null) {
+            player.resetPlayerTime();
+            return;
+        }
+
         if (!(object instanceof Long time)) {
             return;
         }
@@ -76,7 +81,7 @@ public class DayTimeChange extends PlotOptionsRegister {
 
     @EventHandler
     public void onSettingChange(SettingChangeCurrentEvent event) {
-        if (event.getType() != PlotSettings.Type.DAY_TIME_CHANGE || !(event.getSetObject() instanceof Long time)) {
+        if (event.getType() != PlotSettings.Type.DAY_TIME_CHANGE) {
             return;
         }
 
@@ -86,7 +91,11 @@ public class DayTimeChange extends PlotOptionsRegister {
                 .getPlayersInRegion(PLOTS_WORLD, event.getRegionName())
                 .thenAcceptAsync(players -> {
             for (Player player : players) {
-                player.setPlayerTime(time, false);
+                if (event.getSetObject() == null) {
+                    player.resetPlayerTime();
+                    return;
+                }
+                player.setPlayerTime((Long) event.getSetObject(), false);
             }
         });
     }
@@ -100,6 +109,11 @@ public class DayTimeChange extends PlotOptionsRegister {
             }
 
             Object object = plot.getSettings().getCurrent(PlotSettings.Type.DAY_TIME_CHANGE);
+            if (object == null) {
+                player.resetPlayerTime();
+                return;
+            }
+
             if (!(object instanceof Long time)) {
                 return;
             }

@@ -57,7 +57,7 @@ public class PlotCreator {
     public static CompletableFuture<Tuple<Location, Plot>> creteAndRegisterEmptyPlot(Player player) {
         String creationDate = getCurrentDateAndTime();
         UUID uuid = player.getUniqueId();
-        Plot plot = new Plot(uuid, creationDate, PlotNameFactory.createPlotName(player.getName()), new ArrayList<>(), new ArrayList<>(), new PlotUpgrades(), new PlotSettings(), getDefaultExpiration(), new OpSerializableLocation(player.getLocation()));
+        Plot plot = new Plot(uuid, creationDate, PlotNameFactory.createPlotName(player.getName()), new ArrayList<>(), new ArrayList<>(), new PlotUpgrades(), new PlotSettings(null), getDefaultExpiration(), new OpSerializableLocation(player.getLocation()));
         String regionIdentifier = plot.getRegionIdentifier();
         String supportRegionIdentifier = plot.getSupportRegionIdentifier();
         String safeAreaRegionIdentifier = plot.getSafeAreaRegionIdentifier();
@@ -102,7 +102,6 @@ public class PlotCreator {
                     setBlockedSetHomeFlag(regionIdentifier);
                     setPvpFlag(regionIdentifier, true);
                     setMobSpawningFlag(regionIdentifier, true);
-
                     setBuildFlag(supportRegionIdentifier, true);
                     setBuildFlag(safeAreaRegionIdentifier, true);
 

@@ -14,7 +14,6 @@ import java.util.List;
 
 public class AnimalsGrowthUpgrade extends PlotOptionsRegister {
     private static AnimalsGrowthUpgrade instance;
-    private final int GROWTH_MULTIPLIER = 2;
 
     {
         instance = this;
@@ -40,7 +39,7 @@ public class AnimalsGrowthUpgrade extends PlotOptionsRegister {
         }
 
         new OpRunnable(() -> getPlotInsideLocationAsync(event.getLocation()).thenAcceptAsync(plot -> {
-            int newAge = ageable.getAge() + GROWTH_MULTIPLIER * plot.getUpgrades().getLevel(PlotUpgrades.Type.ANIMALS_GROWTH_UPGRADE);
+            int newAge = ageable.getAge() + plot.getUpgrades().getLevel(PlotUpgrades.Type.ANIMALS_GROWTH_UPGRADE) * 2400;
             ageable.setAge(newAge);
         })).runTaskAsynchronously();
 

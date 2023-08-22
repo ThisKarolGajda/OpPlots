@@ -38,12 +38,12 @@ public class PlotCommand {
             }
         }
 
-        if (OpPlotsAPI.isAdded(sender)) {
-            new ChoosePlotInventory(sender, plot -> plot.openMainInventory(sender));
+        if (!OpPlotsAPI.isOwner(sender)) {
+            new CreatePlotInventory(sender);
             return;
         }
 
-        new CreatePlotInventory(sender);
+        new ChoosePlotInventory(sender, plot -> plot.openMainInventory(sender));
     }
 
     @Subcommand("usun")
@@ -102,9 +102,9 @@ public class PlotCommand {
     @Subcommand("wygasniecie")
     @Cooldown(3)
     public void addExpirationCommand(Player sender) {
-        OpPlotsAPI.getOwnerPlot(sender).ifPresentOrElse(plot -> new PlotFunctions(plot).openAddExpirationInventory(sender), () -> {
-            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem żadnej działki!"));
-        });
+        OpPlotsAPI.getOwnerPlot(sender)
+                .ifPresentOrElse(plot -> new PlotFunctions(plot).openAddExpirationInventory(sender),
+                        () -> sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem żadnej działki!")));
     }
 
     @Subcommand("ustawdom")
@@ -135,14 +135,12 @@ public class PlotCommand {
     @CommandPermission(PlayerPermissions.ADMIN)
     public void adminRemovePlotFromUUIDCommand(Player admin, UUID plotUUID) {
         PlotRemover.removePlotFromOwner(plotUUID);
-        admin.sendMessage("Panie szanowny adminie, zobacz kanał logi czy działka została usunięta poprawnie, jeśli nie to usuń ją sam!");
     }
 
     @Subcommand("admin usun")
     @CommandPermission(PlayerPermissions.ADMIN)
     public void adminRemovePlotCommand(Player admin) {
         new ChoosePlotInventory(admin, plot -> PlotRemover.removePlot(plot.plot()));
-        admin.sendMessage("Panie szanowny adminie, zobacz kanał logi czy działka została usunięta poprawnie, jeśli nie to usuń ją sam!");
     }
 
     @Subcommand("admin tp")

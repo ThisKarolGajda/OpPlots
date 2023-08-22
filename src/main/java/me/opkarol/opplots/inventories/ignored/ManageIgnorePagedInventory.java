@@ -30,7 +30,7 @@ public class ManageIgnorePagedInventory {
                         item = new ItemStack(Material.RED_WOOL);
                     }
 
-                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + clicked.getName()).setLore("&7Naciśnij #<447cfc>LPM &7aby usunąć ignorowanie tego użytkownika", "&7UUID: " + clicked.getUniqueId()), event -> {
+                    return new GuiItem(new ItemBuilder(item).setName("#<447cfc>&l" + clicked.getName()).setLore("&7Naciśnij #<447cfc>LPM &7aby usunąć ignorowanie tego użytkownika"), event -> {
                         event.setCancelled(true);
                         if (event.isShiftClick()) {
                             return;
@@ -58,7 +58,7 @@ public class ManageIgnorePagedInventory {
                     plot.addIgnored(newPlayer);
                     player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Dodano gracza: " + newPlayer.getName() + ", do ignorowanych w działce: " + plot.getName() + "."));
                 }))))
-                .build(plot.getIgnored());
+                .build(plot.getIgnored(), 3);
         gui.update();
         gui.show(player);
     }

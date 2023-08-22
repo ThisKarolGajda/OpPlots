@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,8 +25,9 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Działka ma nową nazwę!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setDescription("Nazwa działki: " + plotName + "\\nPoprzednia nazwa: " + previousPlotName + "\\nDom działki: " + homeLocation)
-                            .setColor(systemFoundInappropriate ? Color.RED : Color.GREEN))
+                            .setColor(systemFoundInappropriate ? new Color(0xf5, 0x27, 0x18) : Color.GREEN))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -44,6 +44,7 @@ public class DiscordWebhooks {
             new DiscordWebhook(WEBHOOK_URL)
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Nowa działka stworzona!")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
                             .setDescription("Dom działki: " + homeLocation)
                             .setColor(Color.BLUE))
@@ -67,8 +68,9 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Działka usunięta!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\nNazwy członków: " + membersNames + "\\nNazwy ignorowanych: " + ignoredNames)
-                            .setColor(Color.LIGHT_GRAY))
+                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\n\\nCzłonkowie: " + membersNames + "\\nIgnorowani: " + ignoredNames)
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
+                            .setColor(new Color(145, 34, 22)))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -87,8 +89,9 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Dom działki zmieniony!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\nPoprzedni dom działki: " + previousHomeLocation)
-                            .setColor(Color.DARK_GRAY))
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
+                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\n\\nPoprzedni dom działki: " + previousHomeLocation)
+                            .setColor(Color.LIGHT_GRAY))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -107,9 +110,10 @@ public class DiscordWebhooks {
             new DiscordWebhook(WEBHOOK_URL)
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Członek działki dodany!")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(addedUUID).getName() + " (" + addedUUID + ")")
-                            .setColor(Color.ORANGE))
+                            .setDescription("Nazwa działki: " + plotName + "\\n\\nCzłonkowie: " + membersNames + "\\nPoprzedni członkowie: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(addedUUID).getName() + " (" + addedUUID + ")")
+                            .setColor(new Color(0xe0, 0x9b, 0x3a)))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -128,9 +132,10 @@ public class DiscordWebhooks {
             new DiscordWebhook(WEBHOOK_URL)
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Członek działki usunięty!")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nNazwy członków: " + membersNames + "\\nNazwy poprzednich członków: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(removedUUID).getName() + " (" + removedUUID + ")")
-                            .setColor(Color.MAGENTA))
+                            .setDescription("Nazwa działki: " + plotName + "\\n\\nCzłonkowie: " + membersNames + "\\nPoprzedni członkowie: " + previousMembersNames +"\\nUsunięty członek: " + Bukkit.getOfflinePlayer(removedUUID).getName() + " (" + removedUUID + ")")
+                            .setColor(new Color(224, 5, 232)))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -149,9 +154,10 @@ public class DiscordWebhooks {
             new DiscordWebhook(WEBHOOK_URL)
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Ignorowani działki zmienieni!")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nIgnorowani: " + Arrays.toString(plot.getMembers().toArray()) + "\\nNazwy ignorowanych: " + ignoredNames + "\\nNazwy poprzednich ignorowanych: " + previousIgnoredNames)
-                            .setColor(Color.YELLOW))
+                            .setDescription("Nazwa działki: " + plotName + "\\n\\nIgnorowani: " + ignoredNames + "\\nPoprzedni ignorowani: " + previousIgnoredNames)
+                            .setColor(new Color(178, 206, 120)))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {
@@ -172,9 +178,10 @@ public class DiscordWebhooks {
             new DiscordWebhook(WEBHOOK_URL)
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Działka wygasła!")
+                            .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\nData stworzenia: " + creationDate + "\\nNazwy członków: " + membersNames + "\\nNazwy ignorowanych: " + ignoredNames)
-                            .setColor(Color.green))
+                            .setDescription("Nazwa działki: " + plotName + "\\n\\nDom działki: " + homeLocation + "\\nData stworzenia: " + creationDate + "\\nCzłonkowie: " + membersNames + "\\Ignorowani: " + ignoredNames)
+                            .setColor(new Color(35, 239, 214)))
                     .setTts(true)
                     .execute();
         } catch (IOException e) {

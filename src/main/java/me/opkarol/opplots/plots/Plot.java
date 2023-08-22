@@ -7,6 +7,7 @@ import me.opkarol.opplots.plots.name.PlotNameFactory;
 import me.opkarol.opplots.plots.settings.PlotSettings;
 import me.opkarol.opplots.plots.upgrades.PlotUpgrades;
 import me.opkarol.opplots.utils.DateTimeConverter;
+import me.opkarol.opplots.utils.ExpirationConverter;
 import me.opkarol.opplots.worldguard.WorldGuardBorder;
 import me.opkarol.opplots.worldguard.WorldGuardUsers;
 import org.bukkit.Bukkit;
@@ -17,6 +18,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static me.opkarol.opplots.plots.listener.PlotOutsideBorderListener.getParticle;
 import static me.opkarol.opplots.webhook.DiscordWebhooks.*;
@@ -161,6 +163,12 @@ public class Plot {
         updateToDatabase();
     }
 
+    public String getMembersNames() {
+        return getMembers().stream()
+                .map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName())
+                .collect(Collectors.joining(", "));
+    }
+
     public void removeMember(OfflinePlayer player) {
         removeMember(player.getUniqueId());
     }
@@ -203,6 +211,12 @@ public class Plot {
         updateToDatabase();
     }
 
+    public String getIgnoredNames() {
+        return getIgnored().stream()
+                .map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName())
+                .collect(Collectors.joining(", "));
+    }
+
     public void removeIgnored(OfflinePlayer player) {
         removeIgnored(player.getUniqueId());
     }
@@ -222,6 +236,10 @@ public class Plot {
 
     public void addExpiration(long expiration) {
         setExpiration(getExpiration() + expiration);
+    }
+
+    public String getExpirationLeftString() {
+        return ExpirationConverter.getTimeLeftString(getExpiration());
     }
 
     /*

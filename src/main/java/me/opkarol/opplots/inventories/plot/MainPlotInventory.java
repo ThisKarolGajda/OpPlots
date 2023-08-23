@@ -26,7 +26,7 @@ public class MainPlotInventory {
 
         GuiItem nameChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("2ad8a3a3b36add5d9541a8ec970996fbdcdea9414cd754c50e48e5d34f1bf60a"))
                 .setName("#<447cfc>&lZmiana nazwy działki")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, CHANGE_NAME)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, CHANGE_NAME), "&7Zmień nazwę swojej działki!",  "&7Wulgarne nazwy mogą być ukarane usunięciem działki!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openPlotChangeNameAnvilInventory(player);
@@ -34,7 +34,7 @@ public class MainPlotInventory {
 
         GuiItem membersChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("a4d6dd99928e32b34596c60d6164535fd06d56d85fb3990ef3dcbbc939cf8034"))
                 .setName("#<447cfc>&lZarządzanie członkami")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_MEMBERS)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_MEMBERS), "&7Dodawaj i wyrzucaj członków Twojej działki!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openManageMembersPagedInventory(player);
@@ -42,7 +42,7 @@ public class MainPlotInventory {
 
         GuiItem ignoreChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("ddc80c01f9db8d5a6b7c5a333824b0fa768e60ff4b5341dbc1e34329bb9cdc8c"))
                 .setName("#<447cfc>&lZarządzanie ignorowanymi")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_IGNORED)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_IGNORED), "&7Nieproszeni goście przeszkadzają na Twojej działce?", "&7Zablokuj im wejście na działkę!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openManageIgnorePagedInventory(player);
@@ -50,7 +50,7 @@ public class MainPlotInventory {
 
         GuiItem upgradesChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("399ad7a0431692994b6c412c7eafb9e0fc49975240b73a27d24ed797035fb894"))
                 .setName("#<447cfc>&lUlepszanie działki")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_UPGRADES)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_UPGRADES), "&7Zakup ulepszenia do swojej działki!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openUpgradesInventory(player);
@@ -58,7 +58,7 @@ public class MainPlotInventory {
 
         GuiItem settingsChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("204a6fc8f0cdcb1332ad98354ecba1db595253642b6b6182258bb183625d1892"))
                 .setName("#<447cfc>&lUstawienia działki")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_SETTINGS)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_SETTINGS), "&7Sprawdź i zmień ustawienia swojej działki!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openSettingsInventory(player);
@@ -66,7 +66,7 @@ public class MainPlotInventory {
 
         GuiItem addExpiration = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("3ca1a48d2d231fa71ba5f7c40fdc10d3f2e98c5a63c017321e6781308b8a5793"))
                 .setName("#<447cfc>&lZarządzanie wygaśnięciem działki")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_EXPIRATION)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, MANAGE_EXPIRATION), "&7Sprawdź długość swojej działki oraz ją przedłuż.", "&7Wygaśnięcie oznacza usunięcie działki i pojawienie", "&7się jej kordów na czacie!"),
                 event -> {
                     event.setCancelled(true);
                     plot.openAddExpirationInventory(player);
@@ -74,7 +74,7 @@ public class MainPlotInventory {
 
         GuiItem showBorders = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("7c373b60c4804e8f851ba8829bc0250f2db03d5d9e9a010cc03a2d255ad7fc15"))
                 .setName("#<447cfc>&lWyświetl granicę działki")
-                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, SHOW_BORDERS)),
+                .setLore("&7Dostępne: " + plot.getAvailableFeature(player, SHOW_BORDERS), "&7Wyświetl na 10 sekund granicę swojej działki!"),
                 event -> {
                     event.setCancelled(true);
                     plot.displayBorder(player);
@@ -82,12 +82,12 @@ public class MainPlotInventory {
 
         GuiItem information = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("d01afe973c5482fdc71e6aa10698833c79c437f21308ea9a1a095746ec274a0f"))
                 .setName("#<447cfc>&lInformacje o działce")
-                .setLore("&7Właściciel: #<447cfc>" + plot.plot().getOwnerName(), "&7Data stworzenia: #<447cfc>" + plot.plot().getFormattedCreationDate(), "&7Nazwa: #<447cfc>" + plot.plot().getName(), "&7Członkowie: #<447cfc>" + plot.plot().getMembersNames(), "&7Wygasa: #<447cfc>" + plot.plot().getExpirationLeftString()),
+                .setLore("&7Nazwa: #<447cfc>" + plot.plot().getName(), "&7Właściciel: #<447cfc>" + plot.plot().getOwnerName(), "&7Data stworzenia: #<447cfc>" + plot.plot().getFormattedCreationDate(), "&7Członkowie: #<447cfc>" + plot.plot().getMembersNames(), "&7Wygasa: #<447cfc>" + plot.plot().getExpirationLeftString()),
                 event -> {
                     event.setCancelled(true);
                 });
 
-        GuiItem teleportHome = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("97f82aceb98fe069e8c166ced00242a76660bbe07091c92cdde54c6ed10dcff9"))
+        GuiItem teleportHome = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("c3a8e402dad1b7dad9aae6f4015932183429ce87bbbeced3119026f8296336c2"))
                 .setName("#<447cfc>&lTeleportuj się do domu działki")
                 .setLore("&7Dostępne: " + plot.getAvailableFeature(player, TELEPORT_HOME)),
                 event -> {
@@ -96,7 +96,8 @@ public class MainPlotInventory {
                 });
 
         GuiItem wiki = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("fc445b007b551c4a02648bb38051776bb0ed0bb0d9097820225ebefaf5a1ec3e"))
-                .setName("#<447cfc>&lWikipedia"),
+                .setName("#<447cfc>&lWikipedia")
+                .setLore("&7Sprawdź więcej informacji i komend dotyczących działek!"),
                 event -> {
                     event.setCancelled(true);
                     new PlotWikiInventory(player);

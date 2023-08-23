@@ -43,13 +43,13 @@ public class PlotExpirationManager {
     private void removePlot(Plot plot, PluginManager pluginManager) {
         PlotRemover.removePlot(plot, pluginManager);
         sendPlotExpiredWebhook(plot);
-        String message = FormatUtils.formatMessage("#<447cfc>☁ &7Jakaś działka wygasła na lokalizacji: " + plot.getFamilyHomeLocation() + "!");
+        String message = FormatUtils.formatMessage("#<447cfc>&l☁ &7Jakaś działka wygasła na lokalizacji: " + plot.getFamilyHomeLocation() + "!");
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(message);
         }
 
         if (plot.getOwner().isOnline()) {
-            plot.getOwner().getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Twoja działka wygasła!"));
+            plot.getOwner().getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Twoja działka wygasła!"));
         }
     }
 }

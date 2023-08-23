@@ -33,9 +33,9 @@ public class PlotRemoveAnvilInventory {
 
             if (name.equals(plot.getName())) {
                 PlotRemover.removePlot(plot);
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Usunięto działkę: " + plot.getName() + "!"));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Usunięto działkę: " + plot.getName() + "!"));
             } else {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cPodano złą wartość, działka nie usunięta."));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cPodano złą wartość, działka nie usunięta."));
             }
         }), 0, 0);
         gui.getResultComponent().addPane(secondPane);

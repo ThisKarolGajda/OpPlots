@@ -52,7 +52,7 @@ public class PlotOutsideBorderListener extends BasicListener {
                     if (plot.isIgnored(player)) {
                         ignored[0] = true;
                         event.setCancelled(true);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Nie możesz wejść na tą działkę!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Nie możesz wejść na tą działkę!"));
                     }
                 });
             }
@@ -79,7 +79,7 @@ public class PlotOutsideBorderListener extends BasicListener {
 
     private OpRunnable spawnParticles(Plot plot, Player player, OpMap<UUID, OpRunnable> inSupportRegion, int secondsAlready) {
         if (secondsAlready == MAX_SAFE_TIME) {
-            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Wyłączono obecne pokazywanie granicy. Wejdź i wyjdź ze swojej działki aby zobaczyć granice ponownie lub wpisz /dzialka granica."));
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Wyłączono obecne pokazywanie granicy. Wejdź i wyjdź ze swojej działki aby zobaczyć granice ponownie lub wpisz /dzialka granica."));
             UUID uuid = player.getUniqueId();
             inSupportRegion.getByKey(uuid).ifPresent(OpRunnable::cancelTask);
             inSupportRegion.remove(uuid);

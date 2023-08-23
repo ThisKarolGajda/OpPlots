@@ -31,20 +31,20 @@ public class CreatePlotInventory {
                 event -> {
                     player.closeInventory();
                     if (player.getWorld() != PLOTS_WORLD) {
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie można tworzyć działek na tym świecie!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie można tworzyć działek na tym świecie!"));
                         return;
                     }
 
-                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Przygotowywanie działki, proszę czekać!"));
+                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Przygotowywanie działki, proszę czekać!"));
                     PlotCreator.creteAndRegisterEmptyPlot(player).thenAcceptAsync(locationPlotTuple -> {
                         Location invalidLocation = locationPlotTuple.first();
                         if (invalidLocation != null) {
-                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cRegion jest zajęty w lokalizacji X:" + invalidLocation.getBlockX() + " Y:" + invalidLocation.getBlockY() + " Z:" + invalidLocation.getBlockZ() + ". Nie można stworzyć w tym miejscu działki!"));
+                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cRegion jest zajęty w lokalizacji X:" + invalidLocation.getBlockX() + " Y:" + invalidLocation.getBlockY() + " Z:" + invalidLocation.getBlockZ() + ". Nie można stworzyć w tym miejscu działki!"));
                             return;
                         }
 
                         Plot plot = locationPlotTuple.second();
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Działka stworzona o nazwie: " + plot.getName()));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Działka stworzona o nazwie: " + plot.getName()));
                     });
                 });
 

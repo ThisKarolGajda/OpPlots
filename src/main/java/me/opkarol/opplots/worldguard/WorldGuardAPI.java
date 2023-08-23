@@ -45,7 +45,7 @@ public record WorldGuardAPI(RegionContainer regionContainer) {
     }
 
     public BlockVector3 fromLocation(Location location) {
-        return BlockVector3.at(location.getX(), location.getY(), location.getZ());
+        return BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     public BlockVector3 addFromLocation(Location location, double x, double y, double z) {

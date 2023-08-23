@@ -62,16 +62,16 @@ public class SettingsInventory {
                 });
 
         GuiItem animalsSpawnChange = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("1caaa7fc0396850088bbdd0f8007e2c1a29abc9088c6d24b7943db65ebc814f8"))
-                .setName("#<447cfc>&lSpawn zwierząt na działce")
-                .setLore("&7Włączone: " + StringIconUtil.getReturnedEmojiFromBoolean(plot.getSettings().isCurrent(PlotSettings.Type.ANIMALS_SPAWN_CHANGE, true)), "&7Kliknij aby zmienić to ustawienie za darmo!"),
+                .setName("#<447cfc>&lSpawn złych zwierząt na działce")
+                .setLore("&7Spawn złych zwierząt: " + StringIconUtil.getReturnedEmojiFromBoolean(!plot.getSettings().isCurrent(PlotSettings.Type.ANIMALS_SPAWN_CHANGE, true)), "&7Kliknij aby zmienić to ustawienie za darmo!"),
                 event -> {
                     event.setCancelled(true);
                     if (plot.getSettings().isCurrent(PlotSettings.Type.ANIMALS_SPAWN_CHANGE, true)) {
                         plot.getSettings().setCurrent(plot, PlotSettings.Type.ANIMALS_SPAWN_CHANGE, false);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Zmieniono ustawienie spawnu zwierząt na wyłączone!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Zmieniono ustawienie spawnu złych zwierząt na włączone!"));
                     } else {
                         plot.getSettings().setCurrent(plot, PlotSettings.Type.ANIMALS_SPAWN_CHANGE, true);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Zmieniono ustawienie spawnu zwierząt na włączone!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Zmieniono ustawienie spawnu złych zwierząt na wyłączone!"));
                     }
                     gui.getPanes().removeIf(pane1 -> pane1.getItems().size() == 4);
                     buildItemsPane(plot, player);
@@ -85,10 +85,10 @@ public class SettingsInventory {
                     event.setCancelled(true);
                     if (plot.getSettings().isCurrent(PlotSettings.Type.PVP_CHANGE, true)) {
                         plot.getSettings().setCurrent(plot, PlotSettings.Type.PVP_CHANGE, false);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Zmieniono ustawienie PVP na wyłączone!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Zmieniono ustawienie PVP na wyłączone!"));
                     } else {
                         plot.getSettings().setCurrent(plot, PlotSettings.Type.PVP_CHANGE, true);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Zmieniono ustawienie PVP na włączone!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Zmieniono ustawienie PVP na włączone!"));
                     }
                     gui.getPanes().removeIf(pane1 -> pane1.getItems().size() == 4);
                     buildItemsPane(plot, player);
@@ -144,17 +144,17 @@ public class SettingsInventory {
                     if (!isOwned) {
                         Vault vault = OpPlots.getInstance().getPluginManager().getVault();
                         if (!vault.has(player, cost)) {
-                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie masz wystarczająco pieniędzy!"));
+                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie masz wystarczająco pieniędzy!"));
                         }
 
                         if (vault.withdraw(player, cost) == Vault.VAULT_RETURN_INFO.WITHDRAW_SUCCESSFUL) {
-                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Pomyślnie zakupiono!"));
+                            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Pomyślnie zakupiono!"));
                             settings.addOwned(plot, type, object);
                             settings.setCurrent(plot, type, object);
                         }
                     } else {
                         settings.setCurrent(plot, type, object);
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Zmieniono aktywne ustawienie na: " + familyName + "."));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Zmieniono aktywne ustawienie na: " + familyName + "."));
                     }
 
                     runnable.run();

@@ -6,7 +6,9 @@ import me.opkarol.opc.api.tools.HeadManager;
 import me.opkarol.opc.api.utils.FormatUtils;
 import me.opkarol.opplots.inventories.ItemPaletteGUI;
 import me.opkarol.opplots.inventories.player.PlayerRequestAnvilInventory;
+import me.opkarol.opplots.inventories.plot.MainPlotInventory;
 import me.opkarol.opplots.plots.Plot;
+import me.opkarol.opplots.plots.PlotFunctions;
 import me.opkarol.opplots.utils.PlayerLastPlayed;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -41,31 +43,32 @@ public class ManageMembersPagedInventory {
                         if (event.isLeftClick()) {
                             plot.removeMember(clicked);
                             if (clicked.isOnline()) {
-                                clicked.getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Usunięto cię z działki: " + plot.getName() + ", przez: " + plot.getOwnerName() + "."));
+                                clicked.getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Usunięto cię z działki: " + plot.getName() + ", przez: " + plot.getOwnerName() + "."));
                             }
-                            owner.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Usunięto gracza: " + clicked.getName() + ", z działki: " + plot.getName() + "."));
+                            owner.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Usunięto gracza: " + clicked.getName() + ", z działki: " + plot.getName() + "."));
                             owner.closeInventory();
                         }
                     });
                 })
                 .displayItems(List.of(new GuiItem(new ItemBuilder(Material.GREEN_TERRACOTTA).setName("#<447cfc>&lDodaj członka"), event -> new PlayerRequestAnvilInventory(player, newPlayer -> {
                     if (plot.isIgnored(newPlayer)) {
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest ignorowany, nie można go dodać do działki!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cTen gracz jest ignorowany, nie można go dodać do działki!"));
                         return;
                     }
 
                     if (plot.isAdded(newPlayer)) {
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest już dodany!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cTen gracz jest już dodany!"));
                         return;
                     }
 
                     plot.addMember(newPlayer);
+                    new ManageMembersPagedInventory(plot, player);
                     if (newPlayer.isOnline()) {
-                        newPlayer.getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Dodano cię do działki: " + plot.getName() + ", przez: " + player.getName() + "."));
+                        newPlayer.getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano cię do działki: " + plot.getName() + ", przez: " + player.getName() + "."));
                     }
-                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Dodano gracza: " + newPlayer.getName() + ", do działki: " + plot.getName() + "."));
+                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano gracza: " + newPlayer.getName() + ", do działki: " + plot.getName() + "."));
                 }))))
-                .build(plot.getMembers(), 3);
+                .build(plot.getMembers(), 3, () -> new MainPlotInventory(new PlotFunctions(plot), player));
 
         gui.update();
         gui.show(player);

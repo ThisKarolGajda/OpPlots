@@ -32,18 +32,15 @@ public class PlotCommand {
         Optional<Plot> optional = OpPlotsAPI.getPlotFromLocation(sender.getLocation());
         if (optional.isPresent()) {
             PlotFunctions plot = new PlotFunctions(optional.get());
-            if (plot.isAdded(sender)) {
-                plot.openMainInventory(sender);
+            plot.openMainInventory(sender);
+        } else {
+            if (!OpPlotsAPI.isOwner(sender)) {
+                new CreatePlotInventory(sender);
                 return;
             }
-        }
 
-        if (!OpPlotsAPI.isOwner(sender)) {
-            new CreatePlotInventory(sender);
-            return;
+            new ChoosePlotInventory(sender, plot -> plot.openMainInventory(sender));
         }
-
-        new ChoosePlotInventory(sender, plot -> plot.openMainInventory(sender));
     }
 
     @Subcommand("usun")
@@ -53,7 +50,7 @@ public class PlotCommand {
         if (optional.isPresent()) {
             new PlotRemoveAnvilInventory(sender, optional.get());
         } else {
-            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem żadnej działki!"));
+            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie jesteś właścicielem żadnej działki!"));
         }
     }
 
@@ -104,7 +101,7 @@ public class PlotCommand {
     public void addExpirationCommand(Player sender) {
         OpPlotsAPI.getOwnerPlot(sender)
                 .ifPresentOrElse(plot -> new PlotFunctions(plot).openAddExpirationInventory(sender),
-                        () -> sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem żadnej działki!")));
+                        () -> sender.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie jesteś właścicielem żadnej działki!")));
     }
 
     @Subcommand("ustawdom")
@@ -115,13 +112,13 @@ public class PlotCommand {
             PlotFunctions plot = new PlotFunctions(optional.get());
             if (plot.isOwner(sender)) {
                 plot.setHome(sender);
-                sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Pomyślnie ustawiono dom dla lokalizacji " + plot.plot().getFamilyHomeLocation() + "!"));
+                sender.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Pomyślnie ustawiono dom dla lokalizacji " + plot.plot().getFamilyHomeLocation() + "!"));
                 return;
             }
 
-            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie jesteś właścicielem tej działki!"));
+            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie jesteś właścicielem tej działki!"));
         } else {
-            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie stoisz na żadnej działce!"));
+            sender.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie stoisz na żadnej działce!"));
         }
     }
 

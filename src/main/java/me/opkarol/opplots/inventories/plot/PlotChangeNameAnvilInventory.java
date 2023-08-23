@@ -34,22 +34,22 @@ public class PlotChangeNameAnvilInventory {
 
             int length = name.length();
             if (length > MAXIMAL_NAME_LENGTH) {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNazwa działki może mieć maksymalnie " + MAXIMAL_NAME_LENGTH + " znaków."));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNazwa działki może mieć maksymalnie " + MAXIMAL_NAME_LENGTH + " znaków."));
                 return;
             }
 
             if (length < MINIMAL_NAME_LENGTH) {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNazwa działki musi mieć przynajmniej " + MINIMAL_NAME_LENGTH + " znaków."));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNazwa działki musi mieć przynajmniej " + MINIMAL_NAME_LENGTH + " znaków."));
                 return;
             }
 
             if (!plot.canNameBeSet(name)) {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie można zmienić nazwy działki na: " + name));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie można zmienić nazwy działki na: " + name));
                 return;
             }
 
             plot.setName(name);
-            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Pomyślnie zmieniono nazwę na: #<447cfc>" + name + "&7."));
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Pomyślnie zmieniono nazwę na: #<447cfc>" + name + "&7."));
         }), 0, 0);
         gui.getResultComponent().addPane(secondPane);
 

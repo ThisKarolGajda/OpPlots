@@ -10,6 +10,7 @@ import me.opkarol.opc.api.utils.FormatUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -23,10 +24,12 @@ public class ItemPaletteGUI<M> extends ChestGui {
     private PaginatedPane itemsPane;
     private Consumer<OutlinePane> controlPaneConsumer;
     private List<GuiItem> displayItems;
+    private Runnable onPreviousAction;
 
-    private ItemPaletteGUI(Builder<M> builder, List<M> values, int rows) {
+    private ItemPaletteGUI(Builder<M> builder, List<M> values, int rows, Runnable onPreviousAction) {
         super(rows, FormatUtils.formatMessage(builder.title));
         this.itemTransformer = builder.itemTransformer;
+        this.onPreviousAction = onPreviousAction;
         this.itemFilter = builder.itemFilter;
         this.values = values;
         this.rows = rows;
@@ -62,9 +65,21 @@ public class ItemPaletteGUI<M> extends ChestGui {
             this.controlPaneConsumer.accept(pane);
             pane.addItem(ItemPaletteGUI.PageController.NEXT.toItemStack(this, "&7Następna strona", this.itemsPane));
         } else {
-            pane = new OutlinePane(7, rows - 1, 2, 1, Pane.Priority.HIGH);
-            pane.addItem(ItemPaletteGUI.PageController.PREVIOUS.toItemStack(this, "&7Poprzednia strona", this.itemsPane));
-            pane.addItem(ItemPaletteGUI.PageController.NEXT.toItemStack(this, "&7Następna strona", this.itemsPane));
+            if (onPreviousAction == null) {
+                pane = new OutlinePane(7, rows - 1, 3, 1, Pane.Priority.HIGH);
+                pane.addItem(ItemPaletteGUI.PageController.PREVIOUS.toItemStack(this, "&7Poprzednia strona", this.itemsPane));
+                pane.addItem(ItemPaletteGUI.PageController.NEXT.toItemStack(this, "&7Następna strona", this.itemsPane));
+            } else {
+                pane = new OutlinePane(6, rows - 1, 3, 1, Pane.Priority.HIGH);
+                pane.addItem(ItemPaletteGUI.PageController.PREVIOUS.toItemStack(this, "&7Poprzednia strona", this.itemsPane));
+                pane.addItem(new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("8652e2b936ca8026bd28651d7c9f2819d2e923697734d18dfdb13550f8fdad5f"))
+                        .setName("&7Powrót"),
+                        event -> {
+                    event.setCancelled(true);
+                    onPreviousAction.run();
+                }));
+                pane.addItem(ItemPaletteGUI.PageController.NEXT.toItemStack(this, "&7Następna strona", this.itemsPane));
+            }
         }
 
         return pane;
@@ -190,21 +205,26 @@ public class ItemPaletteGUI<M> extends ChestGui {
             return this;
         }
 
-        public ItemPaletteGUI<M> build(List<M> values, int rows) {
-            ItemPaletteGUI<M> paletteGUI = new ItemPaletteGUI(this, values, rows);
+        public ItemPaletteGUI<M> build(List<M> values, int rows, @Nullable Runnable onPreviousAction) {
+            ItemPaletteGUI<M> paletteGUI = new ItemPaletteGUI(this, values, rows, onPreviousAction);
             paletteGUI.setControlPaneConsumer(this.controlPaneConsumer);
             paletteGUI.setDisplayItems(this.displayItems);
             paletteGUI.build();
             return paletteGUI;
         }
 
-        public ItemPaletteGUI<M> build(List<M> values) {
-            ItemPaletteGUI<M> paletteGUI = new ItemPaletteGUI(this, values, 6);
-            paletteGUI.setControlPaneConsumer(this.controlPaneConsumer);
-            paletteGUI.setDisplayItems(this.displayItems);
-            paletteGUI.build();
-            return paletteGUI;
+        public ItemPaletteGUI<M> build(List<M> values, @Nullable Runnable onPreviousAction) {
+            return build(values, 6, onPreviousAction);
         }
+
+        public ItemPaletteGUI<M> build(List<M> values, int rows) {
+            return build(values, rows, null);
+        }
+
+        public ItemPaletteGUI<M> build(List<M> values) {
+            return build(values, 6, null);
+        }
+
 
         public ItemPaletteGUI<M> build(Supplier<List<M>> values) {
             return this.build(values.get());

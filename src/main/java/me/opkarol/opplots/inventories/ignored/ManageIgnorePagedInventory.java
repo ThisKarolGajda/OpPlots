@@ -6,7 +6,9 @@ import me.opkarol.opc.api.tools.HeadManager;
 import me.opkarol.opc.api.utils.FormatUtils;
 import me.opkarol.opplots.inventories.ItemPaletteGUI;
 import me.opkarol.opplots.inventories.player.PlayerRequestAnvilInventory;
+import me.opkarol.opplots.inventories.plot.MainPlotInventory;
 import me.opkarol.opplots.plots.Plot;
+import me.opkarol.opplots.plots.PlotFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -39,26 +41,27 @@ public class ManageIgnorePagedInventory {
                         Player owner = (Player) event.getWhoClicked();
                         if (event.isLeftClick()) {
                             plot.removeIgnored(clicked);
-                            owner.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Usunięto ignorowanego: " + clicked.getName() + ", z działki: " + plot.getName() + "."));
+                            owner.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Usunięto ignorowanego: " + clicked.getName() + ", z działki: " + plot.getName() + "."));
                             owner.closeInventory();
                         }
                     });
                 })
                 .displayItems(List.of(new GuiItem(new ItemBuilder(Material.GREEN_TERRACOTTA).setName("#<447cfc>&lDodaj ignorowanego"), event -> new PlayerRequestAnvilInventory(player, newPlayer -> {
                     if (plot.isIgnored(newPlayer)) {
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest już ignorowany!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cTen gracz jest już ignorowany!"));
                         return;
                     }
 
                     if (plot.isMember(newPlayer)) {
-                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cTen gracz jest członkiem, nie można go ignorować!"));
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cTen gracz jest członkiem, nie można go ignorować!"));
                         return;
                     }
 
+                    new ManageIgnorePagedInventory(plot, player);
                     plot.addIgnored(newPlayer);
-                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Dodano gracza: " + newPlayer.getName() + ", do ignorowanych w działce: " + plot.getName() + "."));
+                    player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano gracza: " + newPlayer.getName() + ", do ignorowanych w działce: " + plot.getName() + "."));
                 }))))
-                .build(plot.getIgnored(), 3);
+                .build(plot.getIgnored(), 3, () -> new MainPlotInventory(new PlotFunctions(plot), player));
         gui.update();
         gui.show(player);
     }

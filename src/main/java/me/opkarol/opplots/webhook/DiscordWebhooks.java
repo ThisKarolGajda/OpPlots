@@ -26,9 +26,8 @@ public class DiscordWebhooks {
                             .setTitle("Działka ma nową nazwę!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
-                            .setDescription("Nazwa działki: " + plotName + "\\nPoprzednia nazwa: " + previousPlotName + "\\nDom działki: " + homeLocation)
+                            .setDescription("Nazwa działki: **" + plotName + "**\\nPoprzednia nazwa: **" + previousPlotName + "**\\nDom działki: **" + homeLocation + "**")
                             .setColor(systemFoundInappropriate ? new Color(0xf5, 0x27, 0x18) : Color.GREEN))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -46,9 +45,8 @@ public class DiscordWebhooks {
                             .setTitle("Nowa działka stworzona!")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Dom działki: " + homeLocation)
+                            .setDescription("Dom działki: **" + homeLocation + "**")
                             .setColor(Color.BLUE))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -68,10 +66,9 @@ public class DiscordWebhooks {
                     .addEmbed(new DiscordWebhook.EmbedObject()
                             .setTitle("Działka usunięta!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\n\\nCzłonkowie: " + membersNames + "\\nIgnorowani: " + ignoredNames)
+                            .setDescription("Nazwa działki: **" + plotName + "**\\nDom działki: **" + homeLocation + "**\\n\\nCzłonkowie: **" + membersNames + "**\\nIgnorowani: **" + ignoredNames + "**")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setColor(new Color(145, 34, 22)))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -90,9 +87,8 @@ public class DiscordWebhooks {
                             .setTitle("Dom działki zmieniony!")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
-                            .setDescription("Nazwa działki: " + plotName + "\\nDom działki: " + homeLocation + "\\n\\nPoprzedni dom działki: " + previousHomeLocation)
+                            .setDescription("Nazwa działki: **" + plotName + "**\\nDom działki: **" + homeLocation + "**\\n\\nPoprzedni dom działki: **" + previousHomeLocation + "**")
                             .setColor(Color.LIGHT_GRAY))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -112,9 +108,8 @@ public class DiscordWebhooks {
                             .setTitle("Członek działki dodany!")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\n\\nCzłonkowie: " + membersNames + "\\nPoprzedni członkowie: " + previousMembersNames +"\\nNowy członek: " + Bukkit.getOfflinePlayer(addedUUID).getName() + " (" + addedUUID + ")")
+                            .setDescription("Nazwa działki: **" + plotName + "**\\n\\nCzłonkowie: **" + membersNames + "**\\nPoprzedni członkowie: **" + previousMembersNames + "**\\nNowy członek: **" + Bukkit.getOfflinePlayer(addedUUID).getName() + "** (" + addedUUID + ")")
                             .setColor(new Color(0xe0, 0x9b, 0x3a)))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -134,9 +129,8 @@ public class DiscordWebhooks {
                             .setTitle("Członek działki usunięty!")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\n\\nCzłonkowie: " + membersNames + "\\nPoprzedni członkowie: " + previousMembersNames +"\\nUsunięty członek: " + Bukkit.getOfflinePlayer(removedUUID).getName() + " (" + removedUUID + ")")
+                            .setDescription("Nazwa działki: **" + plotName + "**\\n\\nCzłonkowie: **" + membersNames + "**\\nPoprzedni członkowie: **" + previousMembersNames + "**\\nUsunięty członek: **" + Bukkit.getOfflinePlayer(removedUUID).getName() + "** (" + removedUUID + ")")
                             .setColor(new Color(224, 5, 232)))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -147,7 +141,6 @@ public class DiscordWebhooks {
         String author = plot.getOwnerName();
         String uuid = String.valueOf(plot.getOwnerUUID());
         String plotName = plot.getName();
-        String ignoredNames = plot.getIgnored().stream().map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName()).collect(Collectors.joining(", "));
         String previousIgnoredNames = previousIgnored.stream().map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName()).collect(Collectors.joining(", "));
 
         try {
@@ -156,9 +149,8 @@ public class DiscordWebhooks {
                             .setTitle("Ignorowani działki zmienieni!")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\n\\nIgnorowani: " + ignoredNames + "\\nPoprzedni ignorowani: " + previousIgnoredNames)
+                            .setDescription("Nazwa działki: **" + plotName + "**\\n\\nIgnorowani: **" + plot.getIgnoredNames() + "**\\nPoprzedni ignorowani: **" + previousIgnoredNames + "**")
                             .setColor(new Color(178, 206, 120)))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -171,8 +163,6 @@ public class DiscordWebhooks {
         String homeLocation = plot.getHomeLocation().toFamilyString();
         String plotName = plot.getName();
         String creationDate = plot.getFormattedCreationDate();
-        String ignoredNames = plot.getIgnored().stream().map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName()).collect(Collectors.joining(", "));
-        String membersNames = plot.getMembers().stream().map(uuid1 -> Bukkit.getOfflinePlayer(uuid1).getName()).collect(Collectors.joining(", "));
 
         try {
             new DiscordWebhook(WEBHOOK_URL)
@@ -180,9 +170,8 @@ public class DiscordWebhooks {
                             .setTitle("Działka wygasła!")
                             .setImage("https://mc-heads.net/avatar/" + author + "/100/.png")
                             .setFooter(author + " (" + uuid + ")", "https://icon-library.com/images/name-tag-icon/name-tag-icon-20.jpg")
-                            .setDescription("Nazwa działki: " + plotName + "\\n\\nDom działki: " + homeLocation + "\\nData stworzenia: " + creationDate + "\\nCzłonkowie: " + membersNames + "\\Ignorowani: " + ignoredNames)
+                            .setDescription("Nazwa działki: **" + plotName + "**\\n\\nDom działki: **" + homeLocation + "**\\nData stworzenia: **" + creationDate + "**\\nCzłonkowie: **" + plot.getMembersNames() + "**\\Ignorowani: **" + plot.getIgnoredNames() + "**")
                             .setColor(new Color(35, 239, 214)))
-                    .setTts(true)
                     .execute();
         } catch (IOException e) {
             throw new RuntimeException(e);

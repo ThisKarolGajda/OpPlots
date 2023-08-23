@@ -1,5 +1,6 @@
 package me.opkarol.opplots.plots;
 
+import me.opkarol.opc.OpAPI;
 import me.opkarol.opc.api.misc.Tuple;
 import me.opkarol.opc.api.tools.location.OpSerializableLocation;
 import me.opkarol.opc.api.tools.runnable.OpRunnable;
@@ -34,9 +35,9 @@ import static me.opkarol.opplots.worldguard.WorldGuardFlags.*;
 
 public class PlotCreator {
 
-    private static final double MAIN_LENGTH = 40;
+    private static final double MAIN_LENGTH = 41;
     private static final double SUPPORT_LENGTH = MAIN_LENGTH + 10;
-    private static final double SAFE_AREA_LENGTH = 110;
+    private static final double SAFE_AREA_LENGTH = 111;
     private static final OpBossBar bossBar;
     private static final OpSound crashSound;
     private static final OpSound successSound;
@@ -45,7 +46,7 @@ public class PlotCreator {
 
     static {
         // Effects
-        bossBar = new OpBossBar(FormatUtils.formatMessage("#<447cfc>☁ &7Sprawdzanie terenu..."));
+        bossBar = new OpBossBar(FormatUtils.formatMessage("#<447cfc>&l☁ &7Sprawdzanie terenu..."));
         bossBar.setBarColor(BarColor.WHITE);
         bossBar.setBarStyle(BarStyle.SEGMENTED_6);
         bossBar.build();
@@ -75,6 +76,10 @@ public class PlotCreator {
             safeAreaLocation1.setY(-64);
             Location safeAreaLocation2 = playerLocation.clone().add(SAFE_AREA_LENGTH, 0, SAFE_AREA_LENGTH);
             safeAreaLocation2.setY(320);
+
+            OpAPI.logInfo("LOCATION 1: " + player.getLocation());
+            OpAPI.logInfo("LOCATION 1: " + safeAreaLocation1);
+            OpAPI.logInfo("LOCATION 1: " + safeAreaLocation2);
 
             checkAndCreateRegion(safeAreaRegionIdentifier, safeAreaLocation1, safeAreaLocation2, progress -> bossBar.getBossBar().setProgress(progress / 100d)).thenAcceptAsync(invalidLocation -> {
                 bossBar.removeDisplay(player);

@@ -38,7 +38,7 @@ public record PlotFunctions(Plot plot) {
             return;
         }
 
-        owner.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie znaleziono działki na której można wykonać tą operację!"));
+        owner.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie znaleziono działki na której można wykonać tą operację!"));
     }
 
     public static void getPlotFromLocationOrOwner(Player owner, Consumer<PlotFunctions> action) {
@@ -53,11 +53,11 @@ public record PlotFunctions(Plot plot) {
 
         player.closeInventory();
         if (!player.getLocation().getWorld().equals(PLOTS_WORLD)) {
-            player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNa tym świecie nie możesz wyświetlać granicy!"));
+            player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNa tym świecie nie możesz wyświetlać granicy!"));
             return;
         }
 
-        player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Wyświetlanie granicy działki przez 10 sekund!"));
+        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Wyświetlanie granicy działki przez 10 sekund!"));
         OpPlotsAPI.displayBorder(plot, player);
     }
 
@@ -150,9 +150,9 @@ public record PlotFunctions(Plot plot) {
 
         teleportFuture.thenAcceptAsync(success -> {
             if (success) {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &7Pomyślnie przeteleportowano!"));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Pomyślnie przeteleportowano!"));
             } else {
-                player.sendMessage(FormatUtils.formatMessage("#<447cfc>☁ &cNie udało się przeteleportować!"));
+                player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie udało się przeteleportować!"));
             }
         });
     }
@@ -210,9 +210,9 @@ public record PlotFunctions(Plot plot) {
 
         public static String getTooLowPermission(PLOT_FEATURE feature) {
             return switch (feature.permissionLevel) {
-                case 0 -> FormatUtils.formatMessage("#<447cfc>☁ &cMusisz być co najmniej GRACZEM, żeby móc to wykonać!");
-                case 1 -> FormatUtils.formatMessage("#<447cfc>☁ &cMusisz być co najmniej CZŁONKIEM działki, żeby móc to wykonać!");
-                case 2 -> FormatUtils.formatMessage("#<447cfc>☁ &cMusisz być co najmniej WŁAŚCICIELEM działki, żeby móc to wykonać!");
+                case 0 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej GRACZEM, żeby móc to wykonać!");
+                case 1 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej CZŁONKIEM działki, żeby móc to wykonać!");
+                case 2 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej WŁAŚCICIELEM działki, żeby móc to wykonać!");
                 default -> throw new IllegalStateException("Unexpected value: " + feature.permissionLevel);
             };
         }

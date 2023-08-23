@@ -25,12 +25,12 @@ public class PlayerRegionChangingListener extends BasicListener {
 
     @EventHandler
     public void regionEnteredEvent(RegionEnteredEvent event) {
-        useBossBar(event, plot -> "#<447cfc>☁ &7Wchodzisz na: " + plot.getName() + " &8(" + plot.getOwnerName() + ")");
+        useBossBar(event, plot -> "#<447cfc>&l☁ &7Wchodzisz na: " + plot.getName() + " &8(" + plot.getOwnerName() + ")");
     }
 
     @EventHandler
     public void regionLeftEvent(RegionLeftEvent event) {
-        useBossBar(event, plot -> "#<447cfc>☁ &7Wychodzisz z: " + plot.getName() + " &8(" + plot.getOwnerName() + ")");
+        useBossBar(event, plot -> "#<447cfc>&l☁ &7Wychodzisz z: " + plot.getName() + " &8(" + plot.getOwnerName() + ")");
     }
 
     private void useBossBar(IChangeEvent event, Function<Plot, String> title) {

@@ -173,6 +173,11 @@ public class Plot {
         removeMember(player.getUniqueId());
     }
 
+    public boolean hasSpaceForMember() {
+        int maxMembers = PlotUpgrades.getMaxPlayersInPlot(this);
+        return getMembers().size() < maxMembers;
+    }
+
     /*
      * Ignored
      */

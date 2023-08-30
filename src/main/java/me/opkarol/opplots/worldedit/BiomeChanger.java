@@ -8,7 +8,6 @@ import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.biome.BiomeType;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import me.opkarol.opc.OpAPI;
 import me.opkarol.opplots.OpPlots;
 import me.opkarol.opplots.worldguard.WorldGuardAPI;
 
@@ -26,7 +25,6 @@ public class BiomeChanger {
         try (EditSession editSession = WorldEdit.getInstance().newEditSession(BukkitAdapter.adapt(PLOTS_WORLD))) {
             for (BlockVector3 block : region1) {
                 editSession.setBiome(block, biomeType);
-                OpAPI.logInfo(block.toString());
             }
         }
     }

@@ -66,8 +66,20 @@ public class PlotUpgrades {
 
     public boolean canLevelUp(Plot plot, Type type) {
         if (type.equals(Type.PLOT_SIZE_UPGRADE)) {
-            return plot.getOwner().getPlayer().hasPermission(PlayerPermissions.ADDITIONAL_PLOT_SIZE_UPGRADE) && getLevel(type) < type.levelLimit;
+            if (plot.getOwner().getPlayer().hasPermission(PlayerPermissions.ADDITIONAL_PLOT_SIZE_UPGRADE)) {
+                return getLevel(type) < type.levelLimit;
+            } else {
+                return getLevel(type) < type.levelLimit - 1;
+            }
         }
+        if (type.equals(Type.PLAYER_LIMIT_UPGRADE)) {
+            if (plot.getOwner().getPlayer().hasPermission(PlayerPermissions.ADDITIONAL_PLOT_SIZE_UPGRADE)) {
+                return getLevel(type) < type.levelLimit;
+            } else {
+                return getLevel(type) < type.levelLimit - 5;
+            }
+        }
+
         return getLevel(type) < type.levelLimit;
     }
 
@@ -94,8 +106,7 @@ public class PlotUpgrades {
     }
 
     public double getCostForNextLevel(Plot plot, Type type) {
-        if (type.levelLimit == getLevel(type)) {
-            // Already has max level
+        if (!canLevelUp(plot, type)) {
             return 0;
         }
 
@@ -128,10 +139,16 @@ public class PlotUpgrades {
         }
     }
 
+    public static int getMaxPlayersInPlot(Plot plot) {
+        PlotUpgrades upgrades = plot.getUpgrades();
+        return upgrades.getLevel(Type.PLAYER_LIMIT_UPGRADE) + 5;
+    }
+
     public enum Type {
         PLOT_SIZE_UPGRADE(6, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLOT_SIZE_UPGRADE"), null, PlotSizeUpgrade.ON_LEVEL_UP_ACTION),
         PLANTS_GROWTH_UPGRADE(5, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLANTS_GROWTH_UPGRADE"), PlantsGrowthUpgrade.getInstance(), null),
         ANIMALS_GROWTH_UPGRADE(5, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.ANIMALS_GROWTH_UPGRADE"), AnimalsGrowthUpgrade.getInstance(), null),
+        PLAYER_LIMIT_UPGRADE(15, level -> level * Constants.CONFIGURATION.getDouble("plot.upgrades.PLAYER_LIMIT_UPGRADE"), null, null),
         ;
 
         private final int levelLimit;

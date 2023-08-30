@@ -1,6 +1,5 @@
 package me.opkarol.opplots.plots;
 
-import me.opkarol.opc.OpAPI;
 import me.opkarol.opc.api.misc.Tuple;
 import me.opkarol.opc.api.tools.location.OpSerializableLocation;
 import me.opkarol.opc.api.tools.runnable.OpRunnable;
@@ -26,6 +25,8 @@ import org.bukkit.util.Vector;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -42,7 +43,7 @@ public class PlotCreator {
     private static final OpSound crashSound;
     private static final OpSound successSound;
     private static final FireworkSpawn fireworkSpawn = new FireworkSpawn();
-
+    private static final Set<UUID> usingCreator = new HashSet<>();
 
     static {
         // Effects
@@ -55,7 +56,12 @@ public class PlotCreator {
         successSound = new OpSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
     }
 
+    public static boolean isUsingCreator(UUID uuid) {
+        return usingCreator.contains(uuid);
+    }
+
     public static CompletableFuture<Tuple<Location, Plot>> creteAndRegisterEmptyPlot(Player player) {
+        usingCreator.add(player.getUniqueId());
         String creationDate = getCurrentDateAndTime();
         UUID uuid = player.getUniqueId();
         Plot plot = new Plot(uuid, creationDate, PlotNameFactory.createPlotName(player.getName()), new ArrayList<>(), new ArrayList<>(), new PlotUpgrades(), new PlotSettings(null), getDefaultExpiration(), new OpSerializableLocation(player.getLocation()));
@@ -77,13 +83,10 @@ public class PlotCreator {
             Location safeAreaLocation2 = playerLocation.clone().add(SAFE_AREA_LENGTH, 0, SAFE_AREA_LENGTH);
             safeAreaLocation2.setY(320);
 
-            OpAPI.logInfo("LOCATION 1: " + player.getLocation());
-            OpAPI.logInfo("LOCATION 1: " + safeAreaLocation1);
-            OpAPI.logInfo("LOCATION 1: " + safeAreaLocation2);
-
             checkAndCreateRegion(safeAreaRegionIdentifier, safeAreaLocation1, safeAreaLocation2, progress -> bossBar.getBossBar().setProgress(progress / 100d)).thenAcceptAsync(invalidLocation -> {
                 bossBar.removeDisplay(player);
                 bossBar.getBossBar().setProgress(0);
+                usingCreator.remove(player.getUniqueId());
                 if (invalidLocation == null) {
                     OpPlots.getInstance().getPluginManager().getPlotsDatabase().addPlot(plot);
                     future.complete(Tuple.of(null, plot));

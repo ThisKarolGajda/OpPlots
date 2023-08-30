@@ -12,6 +12,8 @@ import me.opkarol.opplots.worldguard.events.RegionEnteredEvent;
 import me.opkarol.opplots.worldguard.events.RegionLeftEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -36,7 +38,15 @@ public class PlotOutsideBorderListener extends BasicListener {
         return new WorldGuardBorder.GreenParticle();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        if (inSupportRegion.containsKey(uuid)) {
+            inSupportRegion.remove(uuid);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void regionEnteredEvent(RegionEnteredEvent event) {
         String regionName = event.getRegionName();
         if (regionName.length() < 48 || REGEX_SAFE_AREA_IDENTIFIER.matcher(regionName).matches()) {
@@ -48,7 +58,11 @@ public class PlotOutsideBorderListener extends BasicListener {
         if (REGEX_MAIN_IDENTIFIER.matcher(event.getRegionName()).matches() && event.getRegionName().length() == 48) {
             if (!player.hasPermission(PlayerPermissions.ADMIN)) {
                 // Player is entering main region and is blocked!?
-                OpPlots.getInstance().getPluginManager().getPlotsDatabase().getPlotFromRegionIdentifier(regionName).ifPresent(plot -> {
+                OpPlots.getInstance()
+                        .getPluginManager()
+                        .getPlotsDatabase()
+                        .getPlotFromRegionIdentifier(regionName)
+                        .ifPresent(plot -> {
                     if (plot.isIgnored(player)) {
                         ignored[0] = true;
                         event.setCancelled(true);
@@ -64,7 +78,7 @@ public class PlotOutsideBorderListener extends BasicListener {
         if (!ignored[0] && matcher.matches()) {
             // Player is entering support region from whatever region
             OpPlots.getInstance().getPluginManager().getPlotsDatabase().getPlotFromRegionIdentifier(regionName.substring(0, regionName.length() - 1)).ifPresent(plot -> {
-                OpRunnable runnable = spawnParticles(plot, player, inSupportRegion);
+                OpRunnable runnable = spawnParticles(plot, player);
                 inSupportRegion.set(uuid, runnable);
             });
         } else {
@@ -73,11 +87,11 @@ public class PlotOutsideBorderListener extends BasicListener {
         }
     }
 
-    private OpRunnable spawnParticles(Plot plot, Player player, OpMap<UUID, OpRunnable> inSupportRegion) {
-        return spawnParticles(plot, player, inSupportRegion, 0);
+    private OpRunnable spawnParticles(Plot plot, Player player) {
+        return spawnParticles(plot, player, 0);
     }
 
-    private OpRunnable spawnParticles(Plot plot, Player player, OpMap<UUID, OpRunnable> inSupportRegion, int secondsAlready) {
+    private OpRunnable spawnParticles(Plot plot, Player player, int secondsAlready) {
         if (secondsAlready == MAX_SAFE_TIME) {
             player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Wyłączono obecne pokazywanie granicy. Wejdź i wyjdź ze swojej działki aby zobaczyć granice ponownie lub wpisz /dzialka granica."));
             UUID uuid = player.getUniqueId();
@@ -88,14 +102,14 @@ public class PlotOutsideBorderListener extends BasicListener {
         plot.displayBorder(player, 1);
         return new OpRunnable((runnable) -> {
             if (inSupportRegion.containsKey(player.getUniqueId())) {
-                spawnParticles(plot, player, inSupportRegion, secondsAlready + 1);
+                spawnParticles(plot, player, secondsAlready + 1);
             } else {
                 runnable.cancelTask();
             }
         }).runTaskLater(20L);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void regionLeftEvent(RegionLeftEvent event) {
         String regionName = event.getRegionName();
         Player player = event.getPlayer();
@@ -106,7 +120,7 @@ public class PlotOutsideBorderListener extends BasicListener {
         if (matcher.matches() && !matcherSupport.matches() && !matcherSafeArea.matches()) {
             // Player is leaving main region and entering support region
             OpPlots.getInstance().getPluginManager().getPlotsDatabase().getPlotFromRegionIdentifier(regionName).ifPresent(plot -> {
-                OpRunnable runnable = spawnParticles(plot, player, inSupportRegion);
+                OpRunnable runnable = spawnParticles(plot, player);
                 inSupportRegion.set(uuid, runnable);
             });
         } else if (!matcherSafeArea.matches()) {

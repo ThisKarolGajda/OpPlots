@@ -10,6 +10,9 @@ import me.opkarol.opc.api.utils.FormatUtils;
 import me.opkarol.opplots.inventories.InventoryHelper;
 import me.opkarol.opplots.inventories.wiki.PlotWikiInventory;
 import me.opkarol.opplots.plots.PlotFunctions;
+import me.opkarol.opplots.plots.PlotRemover;
+import me.opkarol.opplots.plots.permissions.PlayerPermissions;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import static me.opkarol.opplots.plots.PlotFunctions.PLOT_FEATURE.*;
@@ -114,6 +117,19 @@ public class MainPlotInventory {
         itemsPane.addItem(teleportHome, 3, 3);
         itemsPane.addItem(wiki, 4, 3);
         itemsPane.addItem(information, 6, 2);
+
+        if (player.hasPermission(PlayerPermissions.ADMIN)) {
+            StaticPane pane = new StaticPane(0, 0, 9, 5, Pane.Priority.HIGH);
+            pane.addItem(new GuiItem(new ItemBuilder(Material.BARRIER)
+                    .setName("Usuń działkę")
+                    .setLore("OPCJA WIDOCZNA DLA PERMISIJI: " + PlayerPermissions.ADMIN),
+                    event -> {
+                        event.setCancelled(true);
+                        player.closeInventory();
+                        PlotRemover.removePlotFromOwner(plot.plot().getOwnerUUID());
+                    }), 0, 4);
+            gui.addPane(pane);
+        }
 
         gui.addPane(InventoryHelper.backgroundPaneFiveRows);
         gui.addPane(itemsPane);

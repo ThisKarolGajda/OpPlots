@@ -12,6 +12,7 @@ import me.opkarol.opplots.inventories.plot.MainPlotInventory;
 import me.opkarol.opplots.inventories.plot.PlotChangeNameAnvilInventory;
 import me.opkarol.opplots.inventories.settings.SettingsInventory;
 import me.opkarol.opplots.inventories.upgrades.UpgradesInventory;
+import me.opkarol.opplots.plots.permissions.PlayerPermissions;
 import me.opkarol.opplots.utils.StringIconUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -182,6 +183,7 @@ public record PlotFunctions(Plot plot) {
          * 0 - EVERYONE+
          * 1 - MEMBERS+
          * 2 - OWNER+
+         * 3 - ADMIN+
          */
         PLOT_FEATURE(int permissionLevel) {
             this.permissionLevel = permissionLevel;
@@ -197,15 +199,15 @@ public record PlotFunctions(Plot plot) {
         }
 
         private int getPlayerPermissionLevel(Player player, Plot plot) {
-            int playerPermissionLevel;
-            if (plot.isOwner(player)) {
-                playerPermissionLevel = 2;
+            if (player.hasPermission(PlayerPermissions.ADMIN)) {
+                return 3;
+            } else if (plot.isOwner(player)) {
+                return 2;
             } else if (plot.isMember(player)) {
-                playerPermissionLevel = 1;
+                return 1;
             } else {
-                playerPermissionLevel = 0;
+                return 0;
             }
-            return playerPermissionLevel;
         }
 
         public static String getTooLowPermission(PLOT_FEATURE feature) {
@@ -213,6 +215,7 @@ public record PlotFunctions(Plot plot) {
                 case 0 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej GRACZEM, żeby móc to wykonać!");
                 case 1 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej CZŁONKIEM działki, żeby móc to wykonać!");
                 case 2 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej WŁAŚCICIELEM działki, żeby móc to wykonać!");
+                case 3 -> FormatUtils.formatMessage("#<447cfc>&l☁ &cMusisz być co najmniej ADMINEM, żeby móc to wykonać!");
                 default -> throw new IllegalStateException("Unexpected value: " + feature.permissionLevel);
             };
         }

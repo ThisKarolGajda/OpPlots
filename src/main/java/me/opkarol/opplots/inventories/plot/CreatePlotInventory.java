@@ -27,11 +27,16 @@ public class CreatePlotInventory {
 
         GuiItem createPlot = new GuiItem(new ItemBuilder(Material.DIRT)
                 .setName("#<447cfc>&lStwórz działkę!")
-                .setLore(""),
+                .setLore("&7Naciskąjąc ten przycisk, spróbujesz", "&7stworzyć działkę o rozmiarach 41 bloków", "&7w każdą stronę w miejscu, w którym stoisz!", "&7Jeśli miejsce nie będzie już zajęte", "&7to będziesz miał działkę na własność!", "&7(takie łatwe powinny być podatki w Polsce!)"),
                 event -> {
                     player.closeInventory();
                     if (player.getWorld() != PLOTS_WORLD) {
                         player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cNie można tworzyć działek na tym świecie!"));
+                        return;
+                    }
+
+                    if (PlotCreator.isUsingCreator(player.getUniqueId())) {
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cJuż czekasz na działkę!"));
                         return;
                     }
 

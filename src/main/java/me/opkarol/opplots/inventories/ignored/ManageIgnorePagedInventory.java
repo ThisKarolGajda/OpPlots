@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import me.opkarol.opc.api.item.ItemBuilder;
 import me.opkarol.opc.api.tools.HeadManager;
 import me.opkarol.opc.api.utils.FormatUtils;
+import me.opkarol.opc.api.wrappers.OpSound;
 import me.opkarol.opplots.inventories.ItemPaletteGUI;
 import me.opkarol.opplots.inventories.player.PlayerRequestAnvilInventory;
 import me.opkarol.opplots.inventories.plot.MainPlotInventory;
@@ -12,6 +13,7 @@ import me.opkarol.opplots.plots.PlotFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,6 +22,7 @@ import java.util.UUID;
 
 public class ManageIgnorePagedInventory {
     private final ItemPaletteGUI<UUID> gui;
+    private final OpSound addSound = new OpSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
 
     public ManageIgnorePagedInventory(Plot plot, Player player) {
         gui = new ItemPaletteGUI.Builder<UUID>("Zarządzaj ignorowanymi")
@@ -60,6 +63,7 @@ public class ManageIgnorePagedInventory {
                     new ManageIgnorePagedInventory(plot, player);
                     plot.addIgnored(newPlayer);
                     player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano gracza: " + newPlayer.getName() + ", do ignorowanych w działce: " + plot.getName() + "."));
+                    addSound.play(player);
                 }))))
                 .build(plot.getIgnored(), 3, () -> new MainPlotInventory(new PlotFunctions(plot), player));
         gui.update();

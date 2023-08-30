@@ -29,7 +29,7 @@ public class PlotWikiInventory {
                          "&7Dostępne jest 5 poziomów (+1 za rang premium),",
                          "&7które za każdym razem zwiększają wielkość",
                          "&7Twojej posiadłości o 5 kratek w każdą stronę.",
-                         "&7Poziomy są wielkości kolejno:",
+                         "&7Poziomy wielkości wyróżniamy kolejno:",
                          "&7poziom 0 (domyślny) - 41x41",
                          "&7poziom 1 - 51x51",
                          "&7poziom 2 - 61x61",
@@ -41,7 +41,7 @@ public class PlotWikiInventory {
 
         GuiItem plotLimits = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("a3852bf616f31ed67c37de4b0baa2c5f8d8fca82e72dbcafcba66956a81c4"))
                 .setName("#<447cfc>&lLimity działek")
-                .setLore("&7Na naszym serwerze możesz mieć 1 działkę.", "&7Do działek innych możesz być dodany w nieograniczonej ilości.", "&7Tak samo wygląda sprawa z liczbą osób", "&7które możesz dodać do działki i zablokować."),
+                .setLore("&7Na naszym serwerze możesz mieć 1 działkę.", "&7Do działek innych graczy możesz być dodany w nieograniczonej ilości.", "&7Tak samo wygląda sprawa z liczbą osób", "&7które możesz dodać do działki i zablokować."),
                 event -> event.setCancelled(true));
 
         GuiItem addMember = new GuiItem(new ItemBuilder(HeadManager.getHeadFromMinecraftValueUrl("a4d6dd99928e32b34596c60d6164535fd06d56d85fb3990ef3dcbbc939cf8034"))

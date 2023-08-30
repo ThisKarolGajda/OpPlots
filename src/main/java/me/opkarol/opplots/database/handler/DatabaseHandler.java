@@ -1,6 +1,5 @@
 package me.opkarol.opplots.database.handler;
 
-import me.opkarol.opc.OpAPI;
 import me.opkarol.opc.api.tools.location.OpSerializableLocation;
 import me.opkarol.opplots.plots.Plot;
 import me.opkarol.opplots.plots.settings.PlotSettings;
@@ -25,15 +24,16 @@ public abstract class DatabaseHandler {
     public abstract Connection getConnection();
 
     public void createTable() {
+        Connection connection = getConnection();
         try {
-            PreparedStatement statement = getConnection().prepareStatement(
+            PreparedStatement statement = connection.prepareStatement(
                     "CREATE TABLE IF NOT EXISTS plots (" +
                             "id INT PRIMARY KEY AUTO_INCREMENT, " +
                             "owner VARCHAR(36) NOT NULL, " +
                             "creationDate VARCHAR(255) NOT NULL, " +
                             "name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
-                            "members VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
-                            "ignored VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
+                            "members MEDIUMTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
+                            "ignored MEDIUMTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
                             "upgrades VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, " +
                             "settings VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci," +
                             "expiration VARCHAR(255) NOT NULL," +
@@ -47,8 +47,8 @@ public abstract class DatabaseHandler {
     }
 
     public void insertData(Plot plot) {
+        Connection connection = getConnection();
         try {
-            Connection connection = getConnection();
             String ownerUUID = plot.getOwnerUUID().toString();
             String membersUUIDs = joinUUIDList(plot.getMembers());
             String ignoredUUIDs = joinUUIDList(plot.getIgnored());
@@ -102,8 +102,9 @@ public abstract class DatabaseHandler {
 
     public List<Plot> fetchData() {
         List<Plot> plotList = new ArrayList<>();
+        Connection connection = getConnection();
         try {
-            PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM plots;");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM plots;");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 UUID owner = UUID.fromString(resultSet.getString("owner"));
@@ -128,9 +129,21 @@ public abstract class DatabaseHandler {
         return plotList;
     }
 
-    public void delete(Plot plot) {
+    public void fetchDummyData() {
+        Connection connection = getConnection();
         try {
-            PreparedStatement statement = getConnection().prepareStatement("DELETE FROM plots WHERE owner = ?;");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM plots where owner = ?;");
+            statement.setString(1, "");
+            statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(Plot plot) {
+        Connection connection = getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM plots WHERE owner = ?;");
             statement.setString(1, plot.getOwnerUUID().toString());
             statement.executeUpdate();
         } catch (SQLException e) {

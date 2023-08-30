@@ -46,19 +46,17 @@ public class DayChooseInventory {
         GuiItem item4 = getChosenItem(player, DAY_TIME_CHANGE, "Zachód słońca", plot, Material.ORANGE_WOOL, () -> updateItemsPane(player, plot));
         GuiItem item5 = getChosenItem(player, DAY_TIME_CHANGE, "Zmierzch", plot, Material.YELLOW_WOOL, () -> updateItemsPane(player, plot));
         GuiItem item6 = getChosenItem(player, DAY_TIME_CHANGE, "Noc", plot, Material.LIME_WOOL, () -> updateItemsPane(player, plot));
-        GuiItem item7 = getChosenItem(player, DAY_TIME_CHANGE, "Świt", plot, Material.GREEN_WOOL, () -> updateItemsPane(player, plot));
-        GuiItem item8 = getChosenItem(player, DAY_TIME_CHANGE, "Północ", plot, Material.CYAN_WOOL, () -> updateItemsPane(player, plot));
-        GuiItem item9 = getChosenItem(player, DAY_TIME_CHANGE, "Domyślna pora dnia", plot, Material.LIGHT_BLUE_WOOL, () -> updateItemsPane(player, plot));
+        GuiItem item7 = getChosenItem(player, DAY_TIME_CHANGE, "Północ", plot, Material.CYAN_WOOL, () -> updateItemsPane(player, plot));
+        GuiItem item8 = getChosenItem(player, DAY_TIME_CHANGE, "Domyślna pora dnia", plot, Material.LIGHT_BLUE_WOOL, () -> updateItemsPane(player, plot));
 
         pane.addItem(item1, 0, 2);
         pane.addItem(item2, 1, 1);
         pane.addItem(item3, 2, 2);
         pane.addItem(item4, 3, 1);
-        pane.addItem(item5, 4, 2);
-        pane.addItem(item6, 5, 1);
-        pane.addItem(item7, 6, 2);
-        pane.addItem(item8, 7, 1);
-        pane.addItem(item9, 8, 2);
+        pane.addItem(item5, 5, 1);
+        pane.addItem(item6, 6, 2);
+        pane.addItem(item7, 7, 1);
+        pane.addItem(item8, 8, 2);
 
         gui.addPane(pane);
         gui.update();

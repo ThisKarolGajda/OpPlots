@@ -1,6 +1,10 @@
 package me.opkarol.opplots.utils;
 
 public class TimeUtils {
+    public static long getCurrent() {
+        return System.currentTimeMillis();
+    }
+
     public enum TimeUnit {
         SECOND(1000),
         MINUTE(60000),

@@ -132,17 +132,33 @@ public class PlotCommand {
     @CommandPermission(PlayerPermissions.ADMIN)
     public void adminRemovePlotFromUUIDCommand(Player admin, UUID plotUUID) {
         PlotRemover.removePlotFromOwner(plotUUID);
+        admin.sendMessage("Spróbowano usunąć działkę: " + plotUUID + "!");
     }
 
     @Subcommand("admin usun")
     @CommandPermission(PlayerPermissions.ADMIN)
     public void adminRemovePlotCommand(Player admin) {
-        new ChoosePlotInventory(admin, plot -> PlotRemover.removePlot(plot.plot()));
+        new ChoosePlotInventory(admin, plot -> {
+            PlotRemover.removePlot(plot.plot());
+            admin.sendMessage("Spróbowano usunąć działkę: " + plot.plot().getName() + "!");
+        }, true);
     }
 
     @Subcommand("admin tp")
     @CommandPermission(PlayerPermissions.ADMIN)
     public void adminTeleportPlotCommand(Player admin) {
-        teleportPlayer(admin);
+        teleportPlayer(admin, true);
+    }
+
+    @Subcommand("admin zarzadzaj")
+    @CommandPermission(PlayerPermissions.ADMIN)
+    public void managePlotsCommand(Player admin) {
+        new ChoosePlotInventory(admin, plot -> plot.openMainInventory(admin), true);
+    }
+
+    @Subcommand("admin zmien-waznosc")
+    @CommandPermission(PlayerPermissions.ADMIN)
+    public void changeExpire(Player admin, Long expire) {
+        new ChoosePlotInventory(admin, plot -> plot.plot().setExpiration(expire), true);
     }
 }

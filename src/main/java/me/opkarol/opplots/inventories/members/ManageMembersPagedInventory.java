@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import me.opkarol.opc.api.item.ItemBuilder;
 import me.opkarol.opc.api.tools.HeadManager;
 import me.opkarol.opc.api.utils.FormatUtils;
+import me.opkarol.opc.api.wrappers.OpSound;
 import me.opkarol.opplots.inventories.ItemPaletteGUI;
 import me.opkarol.opplots.inventories.player.PlayerRequestAnvilInventory;
 import me.opkarol.opplots.inventories.plot.MainPlotInventory;
@@ -13,6 +14,7 @@ import me.opkarol.opplots.utils.PlayerLastPlayed;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,6 +23,7 @@ import java.util.UUID;
 
 public class ManageMembersPagedInventory {
     private final ItemPaletteGUI<UUID> gui;
+    private final OpSound addSound = new OpSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
 
     public ManageMembersPagedInventory(Plot plot, Player player) {
         gui = new ItemPaletteGUI.Builder<UUID>("Zarządzaj członkami")
@@ -51,6 +54,11 @@ public class ManageMembersPagedInventory {
                     });
                 })
                 .displayItems(List.of(new GuiItem(new ItemBuilder(Material.GREEN_TERRACOTTA).setName("#<447cfc>&lDodaj członka"), event -> new PlayerRequestAnvilInventory(player, newPlayer -> {
+                    if (!plot.hasSpaceForMember()) {
+                        player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cZa mało miejsca na działce! Musisz dokupić ulepszenie, aby móc dodać więcej graczy!"));
+                        return;
+                    }
+
                     if (plot.isIgnored(newPlayer)) {
                         player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &cTen gracz jest ignorowany, nie można go dodać do działki!"));
                         return;
@@ -67,6 +75,7 @@ public class ManageMembersPagedInventory {
                         newPlayer.getPlayer().sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano cię do działki: " + plot.getName() + ", przez: " + player.getName() + "."));
                     }
                     player.sendMessage(FormatUtils.formatMessage("#<447cfc>&l☁ &7Dodano gracza: " + newPlayer.getName() + ", do działki: " + plot.getName() + "."));
+                    addSound.play(player);
                 }))))
                 .build(plot.getMembers(), 3, () -> new MainPlotInventory(new PlotFunctions(plot), player));
 

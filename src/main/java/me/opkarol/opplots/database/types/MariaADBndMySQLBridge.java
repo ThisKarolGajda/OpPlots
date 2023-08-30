@@ -26,7 +26,6 @@ public class MariaADBndMySQLBridge {
             e.printStackTrace();
         }
 
-        // If an exception occurs, close the dataSource
         dataSource.close();
         return null;
     }
